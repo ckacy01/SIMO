@@ -8,9 +8,9 @@
  * Fecha de creación: [19 - MAYO - 2024]
  */
 
-package com.tuempresa.tuapp;
+package com;
 
-import com;
+import com.view.MainView;
 
 public class Main {
     public static void main(String[] args) {
