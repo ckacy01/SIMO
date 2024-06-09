@@ -1,0 +1,31 @@
+# Directorios de construcción
+/build/
+/target/
+/out/
+
+# Archivos de configuración del IDE
+/.idea/
+/*.iml
+/*.ipr
+/*.iws
+
+# Archivos de registro
+*.log
+/logs/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos temporales y de caché
+*.tmp
+*.cache
+*.bak
+
+# Archivos de dependencias
+/.mvn/
+/.gradle/
+/node_modules/
+
+# Archivos generados por el compilador
+*.class
