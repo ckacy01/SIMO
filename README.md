@@ -1,5 +1,5 @@
-# Quadcode
+# SIMO
 
-## Proyecto Final de POO y Base de Datos
+## Sistema Integral Más Óptica
 
 !!! EN PRODUCCION
