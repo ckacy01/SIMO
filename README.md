@@ -22,3 +22,25 @@ a notificar a Más Óptica, cuando un cliente es bueno y cumplió ya un año con
 producto actual, esto servirá principalmente para no perder clientes potenciales y
 poder brindar el mejor servicio al cliente.
 
+## Tecnologias a usar
+
+- **Servicio de BD:** MariaDB, una base de datos relacional de código abierto
+que ofrece rendimiento, escalabilidad y fiabilidad.
+- **Manejador de BD:** MySQL Workbench, una herramienta visual que facilita el
+diseño, desarrollo y administración de bases de datos MySQL.
+- **Lenguaje de programación:** JAVA, un lenguaje de programación robusto y
+versátil que garantiza la portabilidad y la compatibilidad con una amplia gama
+de plataformas.
+- **Control de versiones:** Git, un sistema de control de versiones distribuido
+que permite un seguimiento preciso de los cambios en el código fuente y una
+colaboración efectiva entre equipos de desarrollo.
+- **Diseño de interfaz:** JavaFX Scene Builder, una herramienta intuitiva para el
+diseño de interfaces de usuario modernas y atractivas.
+- **Framework:** JavaFX, un framework gráfico que proporciona un conjunto
+completo de componentes para la creación de interfaces de usuario
+interactivas y dinámicas.
+- **Gestor de Proyectos:** Maven, es una potente herramienta de gestión de
+proyectos que se utiliza para gestión de dependencias, como herramienta de
+compilación e incluso como herramienta de documentación.
+- **IDE:** Intellij, IntelliJ IDEA es un entorno de desarrollo integrado para el
+desarrollo de programas informáticos. Es desarrollado por JetBrains
