@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <AnchorPane prefHeight="500.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+         <children>
+            <PasswordField fx:id="loginPasswordField" layoutX="76.0" layoutY="316.0" prefHeight="26.0" prefWidth="300.0" promptText="************" style="-fx-background-color: transparent; -fx-border-color: #4D4E6D; -fx-border-width: 0px 0px 1px 0px;">
+               <font>
+                  <Font name="Roboto Medium" size="11.0" />
+               </font>
+            </PasswordField>
+            <Pane layoutX="83.0" layoutY="71.0" prefHeight="30.0" prefWidth="60.0" />
+            <TextField fx:id="loginUserField" layoutX="76.0" layoutY="250.0" prefHeight="26.0" prefWidth="300.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: transparent; -fx-border-color: #4D4E6D; -fx-border-width: 0px 0px 1px 0px;">
+               <font>
+                  <Font name="Roboto Light" size="11.0" />
+               </font>
+            </TextField>
+            <Text layoutX="77.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USUARIO" AnchorPane.bottomAnchor="264.0703125" AnchorPane.leftAnchor="76.79999999999998" AnchorPane.rightAnchor="325.587890625" AnchorPane.topAnchor="221.6">
+               <font>
+                  <Font name="Roboto" size="13.0" />
+               </font>
+            </Text>
+            <Text layoutX="77.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONTRASEÑA">
+               <font>
+                  <Font name="Roboto" size="13.0" />
+               </font>
+            </Text>
+            <Text fill="LIGHTGRAY" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QuadCode Innovators inc.">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="76.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INICIAR SESIÓN" wrappingWidth="146.96741485595703">
+               <font>
+                  <Font name="Roboto Bold" size="20.0" />
+               </font>
+            </Text>
+            <Pane fx:id="loginButtom" layoutX="76.0" layoutY="380.0" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #0086be;">
+               <children>
+                  <Text fill="WHITE" layoutX="26.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ENTRAR">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane layoutY="-1.0" prefHeight="30.0" prefWidth="38.0">
+               <children>
+                  <Text fill="LIGHTSTEELBLUE" layoutX="12.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="CENTER">
+                     <font>
+                        <Font name="Microsoft Yi Baiti" size="26.0" />
+                     </font>
+                  </Text>
+               </children></Pane>
+            <Text layoutX="35.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIMO" wrappingWidth="44.567413330078125">
+               <font>
+                  <Font name="Roboto Bold Condensed" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="500.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="500.0" prefWidth="250.0" style="-fx-background-image: url('/com/quadcode/simo/img/city.png');" />
+            <Text fill="SKYBLUE" layoutX="186.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIMO v. 1.0.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Pane layoutX="22.0" layoutY="150.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url('/com/quadcode/simo/img/LogoMasOptica.jpg'); -fx-background-position: center center; -fx-background-size: cover;">
+               <clip>
+                  <Circle centerX="100" centerY="100" radius="100" />
+               </clip>
+            </Pane>
+         </children></AnchorPane>
+   </right>
+</BorderPane>
