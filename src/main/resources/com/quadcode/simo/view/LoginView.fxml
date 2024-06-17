@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quadcode.simo.controller.LoginController">
    <left>
       <AnchorPane prefHeight="500.0" prefWidth="450.0" BorderPane.alignment="CENTER">
          <children>
@@ -57,14 +58,20 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutY="-1.0" prefHeight="30.0" prefWidth="38.0">
+            <Pane fx:id="exit" layoutY="-1.0" onMouseClicked="#labCerrar" prefHeight="30.0" prefWidth="38.0">
                <children>
                   <Text fill="LIGHTSTEELBLUE" layoutX="12.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="CENTER">
                      <font>
                         <Font name="Microsoft Yi Baiti" size="26.0" />
                      </font>
                   </Text>
-               </children></Pane>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Pane>
             <Text layoutX="35.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIMO" wrappingWidth="44.567413330078125">
                <font>
                   <Font name="Roboto Bold Condensed" size="20.0" />

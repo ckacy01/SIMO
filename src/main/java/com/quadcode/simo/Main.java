@@ -10,8 +10,13 @@ package com.quadcode.simo;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main.java
@@ -20,21 +25,35 @@ import javafx.stage.Stage;
  */
 
 public class Main extends Application {
+    private double xMouse, yMouse;
+
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/LoginView.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("Iniciar Sesión (SIMO)");
-            primaryStage.show();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+    public void start(Stage primaryStage){
+        Parent root = null;
+       try {
+           root = FXMLLoader.load(getClass().getResource("/com/quadcode/simo/view/LoginView.fxml"));
+       }catch (IOException ex){
+           Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       Scene scene = new Scene(root);
+       primaryStage.setScene(scene);
+       primaryStage.initStyle(StageStyle.UNDECORATED);
+       primaryStage.show();
+       root.setOnMousePressed(mouseEvent -> {
+          xMouse = mouseEvent.getSceneX();
+          yMouse = mouseEvent.getSceneY();
+       });
+       root.setOnMouseDragged(mouseEvent -> {
+           primaryStage.setX(mouseEvent.getScreenX() - xMouse);
+           primaryStage.setY(mouseEvent.getScreenY() - yMouse);
+       });
+       }
+
 
     public static void main(String[] args) {
         launch(args);
     }
+
+
 }
