@@ -39,6 +39,7 @@ public class Main extends Application {
        Scene scene = new Scene(root);
        primaryStage.setScene(scene);
        primaryStage.initStyle(StageStyle.UNDECORATED);
+       primaryStage.setTitle("SIMO");
        primaryStage.show();
        root.setOnMousePressed(mouseEvent -> {
           xMouse = mouseEvent.getSceneX();
