@@ -15,17 +15,9 @@
    <left>
       <AnchorPane prefHeight="500.0" prefWidth="450.0" BorderPane.alignment="CENTER">
          <children>
-            <PasswordField fx:id="loginPasswordField" layoutX="76.0" layoutY="316.0" prefHeight="26.0" prefWidth="300.0" promptText="************" style="-fx-background-color: transparent; -fx-border-color: #4D4E6D; -fx-border-width: 0px 0px 1px 0px;">
-               <font>
-                  <Font name="Roboto Medium" size="11.0" />
-               </font>
-            </PasswordField>
+            <PasswordField fx:id="loginPasswordField" layoutX="76.0" layoutY="316.0" prefHeight="26.0" prefWidth="300.0" promptText="************" style="-fx-background-color: transparent; -fx-border-color: #4D4E6D; -fx-border-width: 0px 0px 1px 0px;" />
             <Pane layoutX="83.0" layoutY="71.0" prefHeight="30.0" prefWidth="60.0" />
-            <TextField fx:id="loginUserField" layoutX="76.0" layoutY="250.0" prefHeight="26.0" prefWidth="300.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: transparent; -fx-border-color: #4D4E6D; -fx-border-width: 0px 0px 1px 0px;">
-               <font>
-                  <Font name="Roboto Light" size="11.0" />
-               </font>
-            </TextField>
+            <TextField fx:id="loginUserField" layoutX="76.0" layoutY="250.0" prefHeight="26.0" prefWidth="300.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: transparent; -fx-border-color: #4D4E6D; -fx-border-width: 0px 0px 1px 0px;" />
             <Text layoutX="77.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USUARIO" AnchorPane.bottomAnchor="264.0703125" AnchorPane.leftAnchor="76.79999999999998" AnchorPane.rightAnchor="325.587890625" AnchorPane.topAnchor="221.6">
                <font>
                   <Font name="Roboto" size="13.0" />
