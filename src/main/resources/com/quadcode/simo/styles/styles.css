@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Roboto Medium';
-    src: url('../fonts/Roboto-Medium.ttf'); /* Asegúrate de que la ruta sea correcta */
+    src: url('../fonts/Roboto-Medium.ttf');
 }
 
 .normal_font{
