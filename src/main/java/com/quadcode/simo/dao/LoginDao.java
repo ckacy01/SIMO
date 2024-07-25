@@ -1,6 +1,5 @@
 package com.quadcode.simo.dao;
 
-import org.mariadb.jdbc.Driver;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

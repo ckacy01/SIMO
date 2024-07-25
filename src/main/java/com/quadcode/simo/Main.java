@@ -8,7 +8,6 @@
 
 package com.quadcode.simo;
 
-import com.quadcode.simo.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
