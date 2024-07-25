@@ -8,11 +8,13 @@
 
 package com.quadcode.simo;
 
+import com.quadcode.simo.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -26,25 +28,24 @@ import java.util.logging.Logger;
 
 public class Main extends Application {
     private double xMouse, yMouse;
-
-
     @Override
     public void start(Stage primaryStage){
         Parent root = null;
+
        try {
-           root = FXMLLoader.load(getClass().getResource("/com/quadcode/simo/view/View.fxml"));
+           root = FXMLLoader.load(getClass().getResource("/com/quadcode/simo/view/LoginView.fxml"));
            root.getStylesheets().add(getClass().getResource("/com/quadcode/simo/styles/styles.css").toExternalForm());
        }catch (IOException ex){
            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
        }
+
        Scene scene = new Scene(root);
 
-        primaryStage.setScene(scene);
-
-        //primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setResizable(false);
+       primaryStage.setScene(scene);
+       primaryStage.initStyle(StageStyle.UNDECORATED);
        primaryStage.setTitle("SIMO");
        primaryStage.show();
+
        root.setOnMousePressed(mouseEvent -> {
           xMouse = mouseEvent.getSceneX();
           yMouse = mouseEvent.getSceneY();

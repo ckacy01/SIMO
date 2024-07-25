@@ -44,3 +44,16 @@
     -fx-font-size: 14;
 
 }
+
+.login-field{
+    -fx-background-color: transparent;
+    -fx-border-color: #4D4E6D;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-font-family: "System";
+    -fx-font-size: 13;
+}
+
+.field-error{
+    -fx-border-color: #CB2E2D;
+    -fx-prompt-text-fill: #CB2E2D;
+}

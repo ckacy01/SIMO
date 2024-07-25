@@ -122,7 +122,7 @@
             </Pane>
             <Pane layoutX="200.0" prefHeight="55.0" prefWidth="824.0" style="-fx-background-color: FFFFFF;">
                <children>
-                  <MenuButton graphicTextGap="2.0" layoutX="689.0" layoutY="8.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="95.0" style="-fx-background-color: FFFFF;" text="Usuario">
+                  <MenuButton graphicTextGap="2.0" layoutX="689.0" layoutY="8.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="95.0" style="-fx-background-color: #FFFFFF;" text="Usuario">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Configuración" />
                         <SeparatorMenuItem mnemonicParsing="false" />
