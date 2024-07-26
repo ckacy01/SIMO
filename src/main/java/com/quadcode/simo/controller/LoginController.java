@@ -1,18 +1,14 @@
-/**
- * LoginController.java
- * Se creara la logica de la interfaz contectada al login
- * Sus funciones, que hace cada boton y como funciona la interfaz en si
- * Author: [Avila Carrillo Jorge Armando]
- * Fecha de creación: [06 - Junio - 2024]
- */
+
 package com.quadcode.simo.controller;
 
-import com.quadcode.simo.Main;
-import com.quadcode.simo.dao.LoginDao;
+import com.quadcode.simo.model.UserLogin;
+import com.quadcode.simo.service.LoginService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -20,37 +16,45 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import java.io.IOException;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 /**
- * LoginController.java
- * @author Jorge A.
- * */
+ * LoginDao.java
+ * --------------------------------------------------------------
+ * Controlador para manejar el proceso de inicio de sesion
+ * ---------------------------------------------------------------
+ * @author: Avila Carrillo Jorge Armando                           |
+ * Fecha de creacion: 06 - JUNIO - 2024                            |
+ * Ultima Actualizacion: 25 - JULIO - 2024                        |
+ * ---------------------------------------------------------------
+ */
 
 public class LoginController {
 
     @FXML
-    // Se declara el objeto exit de tipo pane para poderlo vincular con nuestro FXML
     private Pane pnExit;
     @FXML
-    // Objeto para la salida del login, cambia de color cuando detecta entrada del cursor
     private Text txtExit;
     @FXML
     private TextField fldUser;
     @FXML
     private PasswordField fldPassword;
     @FXML
-    private Pane btnLogin;
-    @FXML
     private Label lblError;
 
-    /*
-     * Primero se manipula el objeto para poder salir del Login
+    private LoginService loginService;
+
+    /**
+     * Establece el servicio de usuario.
+     *
+     * @param loginService El servicio de usuario a utilizar.
+     */
+
+    public void setLoginService(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
+    /**
+     * Controla el cierre de la ventana del login
      */
     @FXML
     public void labCerrar() {
@@ -59,6 +63,9 @@ public class LoginController {
         stage.close();
     }
 
+    /**
+     * Controla el color de la cruz de salida, al momento de que el usuario pone el mouse por encima de esta
+     */
     @FXML
     public void changeColorRedExit() {
         txtExit.setFill(Paint.valueOf("#CB2E2D"));
@@ -69,66 +76,79 @@ public class LoginController {
         txtExit.setFill(Paint.valueOf("#b0c4de"));
     }
 
-    /*
-     * Area donde se manipula los datos ingresados por el usuario
+    /**
+     * Autentica al usuario con los datos ingresados
      */
-    public void Login() {
-        if(fldUser.getText().isEmpty() && fldPassword.getText().isEmpty()) {
-            lblError.setText("Usuario y/o Contraseña incorrectos");
-            fldUser.getStyleClass().add("field-error");
-            fldPassword.getStyleClass().add("field-error");
-        }else{
-            validateLogin();
+    @FXML
+    public void authenticateUser() {
+        String username = fldUser.getText();
+        String password = fldPassword.getText();
+
+        UserLogin userLogin = loginService.authenticate(username, password);
+
+        if (userLogin != null) {
+            showAlert(AlertType.INFORMATION, "Inicio de sesión exitoso!", "Bienvenido " + userLogin.getUsername());
+            labCerrar();
+            homeView(userLogin);
+        } else {
+            loginError();
         }
     }
 
-    public void validateLogin() {
-        LoginDao connection = new LoginDao();
-        Connection con = connection.getConnection();
+    /**
+     * En caso de que sean datos incorrectos, cambiara de color nuestros campos.
+     */
+    public void loginError() {
+        lblError.setText("Usuario y/o Contraseña incorrectos");
+        fldUser.getStyleClass().add("field-error");
+        fldPassword.getStyleClass().add("field-error");
+    }
 
-        String user = fldUser.getText();
-        String pass = fldPassword.getText();
+    /**
+     * Muestra una alerta con el mensaje especificado.
+     *
+     * @param alertType El tipo de alerta
+     * @param title     El titulo de la alerta
+     * @param message   Mensaje de la alerta
+     */
+    public void showAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
-        String verifyLogin = "SELECT count(1) FROM usuarios WHERE Nombre = '" + user + "' AND Contraseña = '" + pass + "'";
+    /**
+     * Carga la vista principal despues de un inicio de sesion exitoso
+     *
+     * @param userLogin El usuario autenticado.
+     */
 
-        try{
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(verifyLogin);
+    // TODO: FALTA ACTUALIZAR ESTA PARTE PARA QUE FUNCIONE EL HOMEVIEW
+    public void homeView(UserLogin userLogin) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/HomeView.fxml"));
+            Parent homeview = loader.load();
+            homeview.getStylesheets().add(getClass().getResource("/com/quadcode/simo/styles/styles.css").toExternalForm());
+            HomeController homeController = loader.getController();
+            // homeController.setLoggedInUser(userLogin);
 
-            while(rs.next()){
-                if(rs.getInt(1) == 1){
-                    labCerrar();
-                    Stage homeStage = new Stage();
-                    homeView(homeStage);
+            // HomeDao HomeDao = new HomeDao();
+            // HomeService HomeService = new HomeService(HomeDao);
 
-                }else {
-                    lblError.setText("Usuario y/o Contraseña incorrecta");
-                    fldUser.getStyleClass().add("field-error");
-                    fldPassword.getStyleClass().add("field-error");
-                }
-            }
-        }catch(SQLException e){
+            // Establece el servicio de usuario en el controlador
+            // HomeController.setHomeService(HomeService);
+
+            // Configura la escena principal con el objeto raiz cargado desde FXML
+            Scene scene = new Scene(homeview);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("SIMO");
+            stage.show();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
-    public void homeView(Stage homeStage){
-        Parent root = null;
-
-        try {
-            root = FXMLLoader.load(getClass().getResource("/com/quadcode/simo/view/HomeView.fxml"));
-            root.getStylesheets().add(getClass().getResource("/com/quadcode/simo/styles/styles.css").toExternalForm());
-        }catch (IOException ex){
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        Scene scene = new Scene(root);
-
-        homeStage.setScene(scene);
-        homeStage.setResizable(false);
-        homeStage.setTitle("SIMO");
-        homeStage.show();
-    }
-
 }

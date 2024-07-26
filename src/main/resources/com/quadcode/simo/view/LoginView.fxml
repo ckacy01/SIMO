@@ -45,7 +45,7 @@
                   <Font name="Roboto Bold" size="20.0" />
                </font>
             </Text>
-            <Pane fx:id="btnLogin" layoutX="76.0" layoutY="380.0" onMouseClicked="#Login" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #0086be;">
+            <Pane fx:id="btnLogin" layoutX="76.0" layoutY="380.0" onMouseClicked="#authenticateUser" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #0086be;">
                <children>
                   <Text fill="WHITE" layoutX="26.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ENTRAR">
                      <font>
