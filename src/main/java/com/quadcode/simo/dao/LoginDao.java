@@ -41,7 +41,7 @@ public class LoginDao {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 // Si encuentra el usuario retorna los datos de la base de datos
-                return new UserLogin(rs.getInt("UsuarioID"), rs.getString("Nombre"), rs.getString("Contraseña"));
+                return new UserLogin(rs.getInt("UsuarioID"), rs.getString("Usuario"), rs.getString("Contraseña"));
             }
             return null;
         }
