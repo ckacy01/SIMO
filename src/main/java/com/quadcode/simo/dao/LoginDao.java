@@ -32,7 +32,7 @@ public class LoginDao {
      */
 
     public UserLogin getUserByUsername(String username) throws SQLException, ClassNotFoundException {
-        String query = "SELECT * FROM usuarios WHERE Nombre = ?";
+        String query = "SELECT * FROM usuarios WHERE Usuario = ?";
 
         // Intenta hacer la conexion con la base de datos, y valida los datos de entrada
         try(Connection con = DatabaseConnection.getConnection();
@@ -41,7 +41,7 @@ public class LoginDao {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 // Si encuentra el usuario retorna los datos de la base de datos
-                return new UserLogin(rs.getInt("UsuarioID"), rs.getString("Usuario"), rs.getString("Contraseña"));
+                return new UserLogin(rs.getInt("Id"), rs.getString("Usuario"), rs.getString("Contraseña"));
             }
             return null;
         }
