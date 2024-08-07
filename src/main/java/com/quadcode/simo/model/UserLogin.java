@@ -18,6 +18,11 @@ public class UserLogin {
     private String username;
     private String password;
 
+    public UserLogin() {
+        this.id = 0;
+        this.username = "";
+        this.password = "";
+    }
     public UserLogin(int id, String username, String password) {
         this.id = id;
         this.username = username;

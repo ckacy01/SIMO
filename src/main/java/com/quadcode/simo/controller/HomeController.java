@@ -1,5 +1,8 @@
 package com.quadcode.simo.controller;
 
+import javafx.fxml.FXML;
+
+
 /**
  * HomeController.java
  * Se creara la logica de la pagina principal Home
@@ -8,5 +11,10 @@ package com.quadcode.simo.controller;
  * Fecha de creación: [24 - Julio - 2024]
  */
 
-public class HomeController {
+public class HomeController extends NavBarController{
+
+    @FXML
+    public void initialize() {
+        setMenuUser();
+    }
 }

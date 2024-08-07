@@ -4,6 +4,7 @@ import com.quadcode.simo.controller.LoginController;
 import com.quadcode.simo.dao.LoginDao;
 import com.quadcode.simo.service.LoginService;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,7 +42,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         // Carga el archivo FXML para la vista de inicio de sesión
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/LoginView.fxml"));
 
@@ -71,13 +71,12 @@ public class Main extends Application {
         // Obtiene la posicion del cursor, y mueve la ventana mientras esta es presionada por el usuario
         // Esto es por que la ventana esta tipo UNDECORATED
         root.setOnMousePressed(mouseEvent -> {
-          xMouse = mouseEvent.getSceneX();
-          yMouse = mouseEvent.getSceneY();
-       });
+            xMouse = mouseEvent.getSceneX();
+            yMouse = mouseEvent.getSceneY();
+        });
         root.setOnMouseDragged(mouseEvent -> {
-           primaryStage.setX(mouseEvent.getScreenX() - xMouse);
-           primaryStage.setY(mouseEvent.getScreenY() - yMouse);
-       });
+            primaryStage.setX(mouseEvent.getScreenX() - xMouse);
+            primaryStage.setY(mouseEvent.getScreenY() - yMouse);
+        });
     }
-
 }

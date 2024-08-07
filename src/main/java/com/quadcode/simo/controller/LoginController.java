@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * LoginDao.java
+ * LoginController.java
  * --------------------------------------------------------------
  * Controlador para manejar el proceso de inicio de sesion
  * ---------------------------------------------------------------
@@ -125,27 +125,20 @@ public class LoginController {
      * @param userLogin El usuario autenticado.
      */
 
-    // TODO: FALTA ACTUALIZAR ESTA PARTE PARA QUE FUNCIONE EL HOMEVIEW
     public void homeView(UserLogin userLogin) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/HomeView.fxml"));
             Parent homeview = loader.load();
-            homeview.getStylesheets().add(getClass().getResource("/com/quadcode/simo/styles/styles.css").toExternalForm());
             HomeController homeController = loader.getController();
-            // homeController.setLoggedInUser(userLogin);
-
-            // HomeDao HomeDao = new HomeDao();
-            // HomeService HomeService = new HomeService(HomeDao);
-
-            // Establece el servicio de usuario en el controlador
-            // HomeController.setHomeService(HomeService);
-
-            // Configura la escena principal con el objeto raiz cargado desde FXML
+            homeController.setUser(userLogin.getUsername());
+            homeview.getStylesheets().add(getClass().getResource("/com/quadcode/simo/styles/styles.css").toExternalForm());
             Scene scene = new Scene(homeview);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("SIMO");
+            stage.setResizable(false);
             stage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
