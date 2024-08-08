@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -42,6 +43,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // Imagen para el logo de la aplicacion
+        Image logo = new Image("/com/quadcode/simo/img/LogoMasOptica.jpg");
+
         // Carga el archivo FXML para la vista de inicio de sesión
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/LoginView.fxml"));
 
@@ -67,6 +71,7 @@ public class Main extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setTitle("SIMO");
         primaryStage.show();
+        primaryStage.getIcons().add(logo);
 
         // Obtiene la posicion del cursor, y mueve la ventana mientras esta es presionada por el usuario
         // Esto es por que la ventana esta tipo UNDECORATED

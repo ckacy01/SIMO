@@ -74,8 +74,20 @@ public class NavBarController {
     }
 
     @FXML
-    public void btnConfiguracion(MouseEvent event){
-        navigateto("/com/quadcode/simo/view/ConfiguracionView.fxml", (Pane) event.getSource());
+    public void btnConfiguracion(){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/ConfiguracionView.fxml"));
+            Parent confview = loader.load();
+            Scene scene = new Scene(confview);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Configuracion de: " + username);
+            stage.setResizable(false);
+            stage.show();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     private void navigateto(String fxml, Pane pane) {

@@ -12,10 +12,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * LoginController.java
@@ -127,6 +129,7 @@ public class LoginController {
 
     public void homeView(UserLogin userLogin) {
         try {
+            Image logo = new Image("/com/quadcode/simo/img/LogoMasOptica.jpg");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/HomeView.fxml"));
             Parent homeview = loader.load();
             HomeController homeController = loader.getController();
@@ -135,8 +138,9 @@ public class LoginController {
             Scene scene = new Scene(homeview);
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.getIcons().add(logo);
             stage.setTitle("SIMO");
-            stage.setResizable(false);
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
 
         } catch (Exception e) {
