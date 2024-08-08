@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -94,22 +95,72 @@ public class ClienteController extends NavBarController{
     private void configurarEventos(){
         tbClientes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                fldNombre1.setText(newValue.getNombre());
-                fldTel1.setText(newValue.getTelefono());
-                fldNombre2.setText(newValue.getNombre());
-                fldTel2.setText(newValue.getTelefono());
-                cbRelacion.setValue(newValue.getReferencia());
-                fldCalle1.setText(newValue.getCalle1());
-                fldColonia1.setText(newValue.getColonia1());
-                fldCp1.setText(newValue.getCodigoPostal1());
-                fldEntreC1.setText(newValue.getEntreCalles1());
-                fldReferencia.setText(newValue.getReferencia());
-                fldCalle2.setText(newValue.getCalle2());
-                fldColonia2.setText(newValue.getColonia2());
-                fldEntreC2.setText(newValue.getEntreCalles2());
-                fldReferencia2.setText(newValue.getReferencia2());
-                fldCp2.setText(newValue.getCodigoPostal2());
+                fldNombre1.setText(newValue.getClienteNombre());
+                fldTel1.setText(newValue.getClienteTelefono());
+                fldNombre2.setText(newValue.getReferidoNombre());
+                fldTel2.setText(newValue.getReferidoTelefono());
+                cbRelacion.setValue(newValue.getReferidoRelacion());
+                fldCalle1.setText(newValue.getDireccionClienteCalleNumero());
+                fldColonia1.setText(newValue.getDireccionClienteColonia());
+                fldCp1.setText(newValue.getDireccionClienteCodigoPostal());
+                fldEntreC1.setText(newValue.getDireccionClienteEntreCalles());
+                fldReferencia.setText(newValue.getDireccionClienteReferencia());
+                fldCalle2.setText(newValue.getDireccionReferidoCalleNumero());
+                fldColonia2.setText(newValue.getDireccionReferidoColonia());
+                fldEntreC2.setText(newValue.getDireccionReferidoEntreCalles());
+                fldReferencia2.setText(newValue.getDireccionReferidoReferencia());
+                fldCp2.setText(newValue.getDireccionReferidoCodigoPostal());
             }
         });
     }
+
+    @FXML
+    public void insertarCliente() {
+        // Obtener los datos de los campos de texto
+        String clienteNombre = fldNombre1.getText();
+        String clienteTelefono = fldTel1.getText();
+        String referidoNombre = fldNombre2.getText();
+        String referidoTelefono = fldTel2.getText();
+        String referidoRelacion = cbRelacion.getValue();
+        String direccionClienteCalleNumero = fldCalle1.getText();
+        String direccionClienteCodigoPostal = fldCp1.getText();
+        String direccionClienteEntreCalles = fldEntreC1.getText();
+        String direccionClienteColonia = fldColonia1.getText();
+        String direccionClienteReferencia = fldReferencia.getText();
+        String direccionReferidoCalleNumero = fldCalle2.getText();
+        String direccionReferidoCodigoPostal = fldCp2.getText();
+        String direccionReferidoEntreCalles = fldEntreC2.getText();
+        String direccionReferidoColonia = fldColonia2.getText();
+        String direccionReferidoReferencia = fldReferencia2.getText();
+
+        // Crear una instancia de ClienteDetalle
+        ClienteDetalle clienteDetalle = new ClienteDetalle();
+        clienteDetalle.setClienteNombre(clienteNombre);
+        clienteDetalle.setClienteTelefono(clienteTelefono);
+        clienteDetalle.setReferidoNombre(referidoNombre);
+        clienteDetalle.setReferidoTelefono(referidoTelefono);
+        clienteDetalle.setReferidoRelacion(referidoRelacion);
+        clienteDetalle.setDireccionClienteCalleNumero(direccionClienteCalleNumero);
+        clienteDetalle.setDireccionClienteCodigoPostal(direccionClienteCodigoPostal);
+        clienteDetalle.setDireccionClienteEntreCalles(direccionClienteEntreCalles);
+        clienteDetalle.setDireccionClienteColonia(direccionClienteColonia);
+        clienteDetalle.setDireccionClienteReferencia(direccionClienteReferencia);
+        clienteDetalle.setDireccionReferidoCalleNumero(direccionReferidoCalleNumero);
+        clienteDetalle.setDireccionReferidoCodigoPostal(direccionReferidoCodigoPostal);
+        clienteDetalle.setDireccionReferidoEntreCalles(direccionReferidoEntreCalles);
+        clienteDetalle.setDireccionReferidoColonia(direccionReferidoColonia);
+        clienteDetalle.setDireccionReferidoReferencia(direccionReferidoReferencia);
+
+        System.out.println(clienteDetalle.getClienteNombre());
+
+        // Crear una instancia de ClienteDao
+        ClienteDao clienteDao = new ClienteDao();
+
+        // Insertar datos en la base de datos
+        clienteDao.insertarClienteConReferido(clienteDetalle);
+        cargarDatosEnTabla();
+    }
+
+
+
 }

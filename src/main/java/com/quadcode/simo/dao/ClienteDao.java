@@ -6,10 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.mariadb.jdbc.Connection;
 
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,42 +23,44 @@ public class ClienteDao {
 
     public List<ClienteDetalle> obtenerClientesDetalle() throws SQLException {
         List<ClienteDetalle> clientesDetalles = new ArrayList<>();
-        String sql = "{CALL obtener_clientes_detalle()}";
+        String sql = "SELECT * FROM obtener_clientes_detalle";
 
-        try (CallableStatement callableStatement = connection.prepareCall(sql)) {
-            ResultSet resultSet = callableStatement.executeQuery();
+        try(PreparedStatement stmt = connection.prepareStatement(sql)) {
+            ResultSet resultSet = stmt.executeQuery();
 
-            while (resultSet.next()) {
-                ClienteDetalle detalle = new ClienteDetalle();
-                detalle.setId(resultSet.getInt("clienteId"));
-                detalle.setNombre(resultSet.getString("clienteNombre"));
-                detalle.setTelefono(resultSet.getString("clienteTelefono"));
-                detalle.setNombreFam(resultSet.getString("referidoNombre"));
-                detalle.setTelefonoFam(resultSet.getString("referidoTelefono"));
-                detalle.setRelacionConCliente(resultSet.getString("referidoRelacion"));
-                detalle.setCalle1(resultSet.getString("direccionClienteCalleNumero"));
-                detalle.setCodigoPostal1(resultSet.getString("direccionClienteCodigoPostal"));
-                detalle.setEntreCalles1(resultSet.getString("direccionClienteEntreCalles"));
-                detalle.setColonia1(resultSet.getString("direccionClienteColonia"));
-                detalle.setReferencia(resultSet.getString("direccionClienteReferencia"));
-                detalle.setCalle2(resultSet.getString("direccionReferidoCalleNumero"));
-                detalle.setCodigoPostal2(resultSet.getString("direccionReferidoCodigoPostal"));
-                detalle.setEntreCalles2(resultSet.getString("direccionReferidoEntreCalles"));
-                detalle.setColonia2(resultSet.getString("direccionReferidoColonia"));
-                detalle.setReferencia2(resultSet.getString("direccionReferidoReferencia"));
+                while (resultSet.next()) {
+                    ClienteDetalle detalle = new ClienteDetalle();
+                    detalle.setClienteId(resultSet.getInt("clienteId"));
+                    detalle.setClienteNombre(resultSet.getString("clienteNombre"));
+                    detalle.setClienteTelefono(resultSet.getString("clienteTelefono"));
+                    detalle.setReferidoNombre(resultSet.getString("referidoNombre"));
+                    detalle.setReferidoTelefono(resultSet.getString("referidoTelefono"));
+                    detalle.setReferidoRelacion(resultSet.getString("referidoRelacion"));
+                    detalle.setDireccionClienteCalleNumero(resultSet.getString("direccionClienteCalleNumero"));
+                    detalle.setDireccionClienteCodigoPostal(resultSet.getString("direccionClienteCodigoPostal"));
+                    detalle.setDireccionClienteEntreCalles(resultSet.getString("direccionClienteEntreCalles"));
+                    detalle.setDireccionClienteColonia(resultSet.getString("direccionClienteColonia"));
+                    detalle.setDireccionClienteReferencia(resultSet.getString("direccionClienteReferencia"));
+                    detalle.setDireccionReferidoCalleNumero(resultSet.getString("direccionReferidoCalleNumero"));
+                    detalle.setDireccionReferidoCodigoPostal(resultSet.getString("direccionReferidoCodigoPostal"));
+                    detalle.setDireccionReferidoEntreCalles(resultSet.getString("direccionReferidoEntreCalles"));
+                    detalle.setDireccionReferidoColonia(resultSet.getString("direccionReferidoColonia"));
+                    detalle.setDireccionReferidoReferencia(resultSet.getString("direccionReferidoReferencia"));
 
-                clientesDetalles.add(detalle);
-            }
+                    System.out.println(detalle.getClienteNombre());
+                    clientesDetalles.add(detalle);
+                }
+
         }
         return clientesDetalles;
     }
 
     public List<TableColumn<ClienteDetalle, ?>> getColumnsFromDatabase() {
         List<TableColumn<ClienteDetalle, ?>> columns = new ArrayList<>();
-        String sql = "{CALL obtener_clientes_detalle()}";
+        String sql = "SELECT * FROM obtener_clientes_detalle";
 
-        try (CallableStatement callableStatement = connection.prepareCall(sql)) {
-            ResultSet stm = callableStatement.executeQuery();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            ResultSet stm = stmt.executeQuery();
 
             ResultSetMetaData metaData = stm.getMetaData();
             int columnCount = metaData.getColumnCount();
@@ -77,6 +76,32 @@ public class ClienteDao {
             e.printStackTrace();
         }
         return columns;
+    }
+
+    public void insertarClienteConReferido(ClienteDetalle clienteDetalle) {
+        String sql = "{CALL InsertarClienteConReferido(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+
+        try (CallableStatement stmt = connection.prepareCall(sql)){
+            stmt.setString(1, clienteDetalle.getClienteNombre());
+            stmt.setString(2, clienteDetalle.getClienteTelefono());
+            stmt.setString(3, clienteDetalle.getDireccionClienteCalleNumero());
+            stmt.setString(4, clienteDetalle.getDireccionClienteCodigoPostal());
+            stmt.setString(5, clienteDetalle.getDireccionClienteEntreCalles());
+            stmt.setString(6, clienteDetalle.getDireccionClienteColonia());
+            stmt.setString(7, clienteDetalle.getDireccionClienteReferencia());
+            stmt.setString(8, clienteDetalle.getReferidoNombre());
+            stmt.setString(9, clienteDetalle.getReferidoTelefono());
+            stmt.setString(10, clienteDetalle.getReferidoRelacion());
+            stmt.setString(11, clienteDetalle.getDireccionReferidoCalleNumero());
+            stmt.setString(12, clienteDetalle.getDireccionReferidoCodigoPostal());
+            stmt.setString(13, clienteDetalle.getDireccionReferidoEntreCalles());
+            stmt.setString(14, clienteDetalle.getDireccionReferidoColonia());
+            stmt.setString(15, clienteDetalle.getDireccionReferidoReferencia());
+
+            stmt.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

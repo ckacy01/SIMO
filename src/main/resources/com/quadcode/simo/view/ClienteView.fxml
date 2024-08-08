@@ -171,7 +171,7 @@
                   </TextField>
                   <Text layoutX="44.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Nombre:" />
                   <Text layoutX="33.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal_font" text="Dirección 1" />
-                  <Pane fx:id="btnGuardar" layoutX="696.0" layoutY="270.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #007BFF;">
+                  <Pane fx:id="btnGuardar" layoutX="696.0" layoutY="270.0" onMouseClicked="#insertarCliente" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #007BFF;">
                      <children>
                         <Text fill="WHITE" layoutX="8.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="AGREGAR" textAlignment="CENTER">
                            <cursor>
@@ -268,7 +268,7 @@
                      </padding>
                   </TextField>
                   <Text layoutX="44.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Entre calles:" />
-                  <TextField fx:id="fldCP2" layoutX="646.0" layoutY="210.0" prefHeight="20.0" prefWidth="109.0" promptText="Código Postal" styleClass="form-text-field">
+                  <TextField fx:id="fldCp2" layoutX="646.0" layoutY="210.0" prefHeight="20.0" prefWidth="109.0" promptText="Código Postal" styleClass="form-text-field">
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
