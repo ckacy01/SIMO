@@ -140,7 +140,7 @@ public class LoginController {
             stage.setScene(scene);
             stage.getIcons().add(logo);
             stage.setTitle("SIMO");
-            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setResizable(false);
             stage.show();
 
         } catch (Exception e) {

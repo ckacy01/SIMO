@@ -161,6 +161,23 @@ public class ClienteController extends NavBarController{
         cargarDatosEnTabla();
     }
 
-
+    @FXML
+    public void Limpiar(){
+        fldNombre1.setText("");
+        fldTel1.setText("");
+        fldNombre2.setText("");
+        fldTel2.setText("");
+        fldCalle1.setText("");
+        fldCp1.setText("");
+        fldEntreC1.setText("");
+        fldColonia1.setText("");
+        fldEntreC2.setText("");
+        fldReferencia.setText("");
+        fldCalle2.setText("");
+        fldCp2.setText("");
+        cbRelacion.setValue(null);
+        fldReferencia2.setText("");
+        fldColonia2.setText("");
+    }
 
 }

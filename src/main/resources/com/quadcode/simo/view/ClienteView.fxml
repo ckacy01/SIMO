@@ -180,7 +180,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnLimpiar" layoutX="596.0" layoutY="270.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
+                  <Pane fx:id="btnLimpiar" layoutX="596.0" layoutY="270.0" onMouseClicked="#Limpiar" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
                      <children>
                         <Text fill="WHITE" layoutX="12.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="LIMPIAR">
                            <cursor>
