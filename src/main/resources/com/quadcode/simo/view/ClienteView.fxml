@@ -189,7 +189,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnModificar" layoutX="495.0" layoutY="270.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
+                  <Pane fx:id="btnModificar" layoutX="495.0" layoutY="270.0" onMouseClicked="#modificarCliente" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
                      <children>
                         <Text fill="WHITE" layoutX="3.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="MODIFICAR">
                            <cursor>

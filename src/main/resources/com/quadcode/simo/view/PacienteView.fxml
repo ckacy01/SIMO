@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
@@ -164,14 +165,9 @@
             <Pane layoutX="212.0" layoutY="424.0" prefHeight="307.0" prefWidth="800.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10;">
                <children>
                   <Text layoutX="33.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal_font" text="Información sobre el paciente" />
-                  <TextField fx:id="lblNombrePaciente" layoutX="98.0" layoutY="57.0" prefHeight="20.0" prefWidth="229.0" promptText="Ingrese un nombre" styleClass="form-text-field">
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding>
-                  </TextField>
                   <Text layoutX="44.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Nombre:" />
                   <Text layoutX="377.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Cliente:" />
-                  <TextField fx:id="lblNombreCliente" layoutX="430.0" layoutY="59.0" prefHeight="20.0" prefWidth="229.0" promptText="Ingrese un nombre" styleClass="form-text-field">
+                  <TextField fx:id="lblNombrePaciente" layoutX="111.0" layoutY="58.0" prefHeight="20.0" prefWidth="229.0" promptText="Ingrese un nombre" styleClass="form-text-field">
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
@@ -230,7 +226,7 @@
                      </padding>
                   </TextField>
                   <Text layoutX="495.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Cilindro:" />
-                  <Pane fx:id="btnGuardar" layoutX="696.0" layoutY="270.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #007BFF;">
+                  <Pane fx:id="btnGuardar" layoutX="696.0" layoutY="270.0" onMouseClicked="#guardarDiagnostico" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #007BFF;">
                      <children>
                         <Text fill="WHITE" layoutX="8.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="GUARDAR">
                            <cursor>
@@ -239,7 +235,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnLimpiar" layoutX="596.0" layoutY="270.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
+                  <Pane fx:id="btnLimpiar" layoutX="596.0" layoutY="270.0" onMouseClicked="#Limpiar" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
                      <children>
                         <Text fill="WHITE" layoutX="12.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="LIMPIAR">
                            <cursor>
@@ -248,7 +244,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnModificar" layoutX="495.0" layoutY="270.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
+                  <Pane fx:id="btnModificar" layoutX="495.0" layoutY="270.0" onMouseClicked="#modificarDiagnostico" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
                      <children>
                         <Text fill="WHITE" layoutX="3.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="MODIFICAR">
                            <cursor>
@@ -301,6 +297,18 @@
                         <Font size="20.0" />
                      </font>
                   </FontAwesomeIconView>
+                  <TextField fx:id="lblNombreCliente" layoutX="438.0" layoutY="57.0" prefHeight="20.0" prefWidth="229.0" promptText="Ingrese un nombre" styleClass="form-text-field">
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                  </TextField>
+                  <ListView fx:id="listClienteNombre" layoutX="438.0" layoutY="80.0" prefHeight="140.0" prefWidth="230.0" visible="false" />
+                  <TextField fx:id="lblDI" layoutX="687.0" layoutY="196.0" prefHeight="20.0" prefWidth="80.0" promptText="DI" styleClass="form-text-field">
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                  </TextField>
+                  <Text layoutX="664.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="DI:" />
                </children>
             </Pane>
          </children>

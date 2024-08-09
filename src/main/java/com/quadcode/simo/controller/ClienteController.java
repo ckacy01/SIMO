@@ -2,25 +2,14 @@ package com.quadcode.simo.controller;
 
 
 import com.quadcode.simo.dao.ClienteDao;
-import com.quadcode.simo.dao.DatabaseConnection;
 import com.quadcode.simo.model.ClienteDetalle;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * ClienteController.java
@@ -29,7 +18,7 @@ import java.util.List;
  * ---------------------------------------------------------------
  * @author: Avila Carrillo Jorge Armando                           |
  * Fecha de creacion: 06 - AGOSTO - 2024                            |
- * Ultima Actualizacion: 06 - AGOSTO - 2024                        |
+ * Ultima Actualizacion: 08 - AGOSTO - 2024                        |
  * ---------------------------------------------------------------
  */
 
@@ -70,6 +59,7 @@ public class ClienteController extends NavBarController{
 
 
     private ClienteDao clienteDao;
+    private int clienteId;
 
     @FXML
     public void initialize() {
@@ -95,6 +85,7 @@ public class ClienteController extends NavBarController{
     private void configurarEventos(){
         tbClientes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+                clienteId = newValue.getClienteId(); // Esta variable es usada para el modificar cliente
                 fldNombre1.setText(newValue.getClienteNombre());
                 fldTel1.setText(newValue.getClienteTelefono());
                 fldNombre2.setText(newValue.getReferidoNombre());
@@ -158,7 +149,39 @@ public class ClienteController extends NavBarController{
 
         // Insertar datos en la base de datos
         clienteDao.insertarClienteConReferido(clienteDetalle);
+        showAlert(Alert.AlertType.INFORMATION, "Agregar Cliente", "El cliente" +  clienteDetalle.getClienteNombre() +  " fue agreado con exito! :)");
         cargarDatosEnTabla();
+        Limpiar();
+    }
+
+    public void modificarCliente(){
+        ClienteDetalle clienteDetalle= new ClienteDetalle();
+        clienteDetalle.setClienteId(clienteId);
+        clienteDetalle.setClienteNombre(fldNombre1.getText());
+        clienteDetalle.setClienteTelefono(fldTel1.getText());
+        clienteDetalle.setReferidoNombre(fldNombre2.getText());
+        clienteDetalle.setReferidoTelefono(fldTel2.getText());
+        clienteDetalle.setReferidoRelacion(cbRelacion.getValue());
+        clienteDetalle.setDireccionClienteCalleNumero(fldCalle1.getText());
+        clienteDetalle.setDireccionClienteCodigoPostal(fldCp1.getText());
+        clienteDetalle.setDireccionClienteEntreCalles(fldEntreC1.getText());
+        clienteDetalle.setDireccionClienteColonia(fldColonia1.getText());
+        clienteDetalle.setDireccionClienteReferencia(fldReferencia.getText());
+        clienteDetalle.setDireccionReferidoCalleNumero(fldCalle2.getText());
+        clienteDetalle.setDireccionReferidoCodigoPostal(fldCp2.getText());
+        clienteDetalle.setDireccionReferidoEntreCalles(fldEntreC2.getText());
+        clienteDetalle.setDireccionReferidoColonia(fldColonia2.getText());
+        clienteDetalle.setDireccionReferidoReferencia(fldReferencia2.getText());
+
+        ClienteDao clienteDao = new ClienteDao();
+        Alert alert;
+        alert = showAlertConfirmation(Alert.AlertType.CONFIRMATION, "Modificar cliente", "¿Seguro que desea modificar al cliente " + clienteDetalle.getClienteNombre() + "?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK){
+           clienteDao.modificarCliente(clienteDetalle);
+        }
+        cargarDatosEnTabla();
+        Limpiar();
     }
 
     @FXML
@@ -178,6 +201,24 @@ public class ClienteController extends NavBarController{
         cbRelacion.setValue(null);
         fldReferencia2.setText("");
         fldColonia2.setText("");
+
+    }
+
+
+    public Alert showAlertConfirmation(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        return alert;
+    }
+
+    public void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

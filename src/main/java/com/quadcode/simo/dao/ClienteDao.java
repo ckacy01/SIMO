@@ -104,4 +104,36 @@ public class ClienteDao {
         }
     }
 
+    public void modificarCliente(ClienteDetalle clienteDetalle) {
+        String sql = "{CALL modificarCliente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+
+        try(CallableStatement callableStatement = connection.prepareCall(sql)){
+            // Establece los parámetros del procedimiento almacenado
+            callableStatement.setInt(1, clienteDetalle.getClienteId());
+            callableStatement.setString(2, clienteDetalle.getClienteNombre());
+            callableStatement.setString(3, clienteDetalle.getClienteTelefono());
+            callableStatement.setString(4, clienteDetalle.getDireccionClienteCalleNumero());
+            callableStatement.setString(5, clienteDetalle.getDireccionClienteCodigoPostal());
+            callableStatement.setString(6, clienteDetalle.getDireccionClienteEntreCalles());
+            callableStatement.setString(7, clienteDetalle.getDireccionClienteColonia());
+            callableStatement.setString(8, clienteDetalle.getDireccionClienteReferencia());
+            callableStatement.setString(9, clienteDetalle.getReferidoNombre());
+            callableStatement.setString(10, clienteDetalle.getReferidoTelefono());
+            callableStatement.setString(11, clienteDetalle.getReferidoRelacion());
+            callableStatement.setString(12, clienteDetalle.getDireccionReferidoCalleNumero());
+            callableStatement.setString(13, clienteDetalle.getDireccionReferidoCodigoPostal());
+            callableStatement.setString(14, clienteDetalle.getDireccionReferidoEntreCalles());
+            callableStatement.setString(15, clienteDetalle.getDireccionReferidoColonia());
+            callableStatement.setString(16, clienteDetalle.getDireccionReferidoReferencia());
+
+            // Ejecuta el procedimiento almacenado
+            callableStatement.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
+
 }

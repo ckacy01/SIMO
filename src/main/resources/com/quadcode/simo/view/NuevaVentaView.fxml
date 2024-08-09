@@ -150,7 +150,7 @@
                         <Font name="Roboto Bold" size="12.0" />
                      </font></Label>
                   <Text layoutX="36.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Nombre del paciente:" />
-                  <TextField fx:id="btnNombrePaciente" layoutX="188.0" layoutY="79.0" prefHeight="20.0" prefWidth="229.0" promptText="Ingrese un nombre" styleClass="form-text-field">
+                  <TextField fx:id="fldNombrePaciente" layoutX="188.0" layoutY="79.0" prefHeight="20.0" prefWidth="229.0" promptText="Ingrese un nombre" styleClass="form-text-field">
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>

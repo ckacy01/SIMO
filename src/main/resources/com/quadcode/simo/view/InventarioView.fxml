@@ -226,7 +226,7 @@
                   <Pane layoutX="646.0" layoutY="552.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/com/quadcode/simo/img/quadcodelogo.png'); -fx-background-position: center center; -fx-background-size: cover;" />
                   <Pane layoutX="711.0" layoutY="552.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/com/quadcode/simo/img/LogoMasOptica.jpg'); -fx-background-position: center center; -fx-background-size: cover;" />
                   <TextField fx:id="fldBuscarCliente1" layoutX="32.0" layoutY="23.0" prefHeight="29.0" prefWidth="240.0" promptText="Buscar aqui... " styleClass="search-text-field" />
-                  <TableView fx:id="tbLentes1" layoutX="32.0" layoutY="62.0" prefHeight="240.0" prefWidth="335.0" />
+                  <TableView fx:id="tbMica" layoutX="32.0" layoutY="62.0" prefHeight="240.0" prefWidth="335.0" />
                   <Text layoutX="32.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal_font" text="Micas" />
                   <Text layoutX="381.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal_font" text="Información sobre micas" />
                   <Text layoutX="386.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Nombre:" />
