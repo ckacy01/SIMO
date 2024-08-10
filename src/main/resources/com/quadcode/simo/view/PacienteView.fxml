@@ -6,7 +6,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
@@ -154,7 +153,6 @@
                   <Pane layoutX="711.0" layoutY="552.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/com/quadcode/simo/img/LogoMasOptica.jpg'); -fx-background-position: center center; -fx-background-size: cover;" />
                   <TextField fx:id="fldBuscarPaciente" layoutX="32.0" layoutY="8.0" prefHeight="29.0" prefWidth="240.0" promptText="Buscar aqui... " styleClass="search-text-field" />
                   <TableView fx:id="tbPacientes" layoutX="32.0" layoutY="62.0" prefHeight="240.0" prefWidth="736.0" />
-                  <DatePicker fx:id="dateBox" layoutX="593.0" layoutY="25.0" promptText="Filtrar por fecha" />
                </children>
             </Pane>
             <Text layoutX="230.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pacientes">
@@ -253,15 +251,6 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnEliminar" layoutX="398.0" layoutY="270.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: CB2E2D;">
-                     <children>
-                        <Text fill="WHITE" layoutX="8.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="ELIMINAR">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Text>
-                     </children>
-                  </Pane>
                   <ComboBox fx:id="cbMaterial" layoutX="98.0" layoutY="130.0" prefHeight="23.0" prefWidth="90.0" promptText="Material" styleClass="form-text-field">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -292,11 +281,6 @@
                         </FXCollections>
                      </items>
                   </ComboBox>
-                  <FontAwesomeIconView fx:id="btnPDF" fill="#f00000" glyphName="DOWNLOAD" layoutX="748.0" layoutY="30.0" selectionFill="#00ff69" size="20">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </FontAwesomeIconView>
                   <TextField fx:id="lblNombreCliente" layoutX="438.0" layoutY="57.0" prefHeight="20.0" prefWidth="229.0" promptText="Ingrese un nombre" styleClass="form-text-field">
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />

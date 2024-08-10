@@ -1,8 +1,6 @@
 package com.quadcode.simo.controller;
 
 import com.quadcode.simo.Main;
-import com.quadcode.simo.model.UserLogin;
-import com.sun.jna.platform.win32.Netapi32Util;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

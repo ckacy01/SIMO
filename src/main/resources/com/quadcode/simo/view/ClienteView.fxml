@@ -6,7 +6,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -153,7 +152,6 @@
                   <Pane layoutX="711.0" layoutY="552.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/com/quadcode/simo/img/LogoMasOptica.jpg'); -fx-background-position: center center; -fx-background-size: cover;" />
                   <TextField fx:id="fldBuscarCliente" layoutX="32.0" layoutY="8.0" prefHeight="29.0" prefWidth="240.0" promptText="Buscar aqui... " styleClass="search-text-field" />
                   <TableView fx:id="tbClientes" layoutX="32.0" layoutY="62.0" prefHeight="240.0" prefWidth="736.0" />
-                  <DatePicker fx:id="dateBox" layoutX="593.0" layoutY="25.0" promptText="Filtrar por fecha" />
                </children>
             </Pane>
             <Text layoutX="230.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clientes">
@@ -192,15 +190,6 @@
                   <Pane fx:id="btnModificar" layoutX="495.0" layoutY="270.0" onMouseClicked="#modificarCliente" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
                      <children>
                         <Text fill="WHITE" layoutX="3.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="MODIFICAR">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Text>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="btnEliminar" layoutX="398.0" layoutY="270.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: CB2E2D;">
-                     <children>
-                        <Text fill="WHITE" layoutX="8.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="ELIMINAR">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

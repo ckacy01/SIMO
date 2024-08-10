@@ -205,15 +205,6 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnEliminarL" layoutX="417.0" layoutY="273.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: CB2E2D;">
-                     <children>
-                        <Text fill="WHITE" layoutX="8.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="ELIMINAR">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Text>
-                     </children>
-                  </Pane>
                </children>
             </Pane>
             <Text layoutX="230.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inventario">
@@ -268,15 +259,6 @@
                   <Pane fx:id="btnModificarL1" layoutX="516.0" layoutY="273.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
                      <children>
                         <Text fill="WHITE" layoutX="3.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="MODIFICAR">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Text>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="btnEliminarL1" layoutX="417.0" layoutY="273.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: CB2E2D;">
-                     <children>
-                        <Text fill="WHITE" layoutX="8.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="ELIMINAR">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
