@@ -47,7 +47,6 @@ public class ClienteDao {
                     detalle.setDireccionReferidoColonia(resultSet.getString("direccionReferidoColonia"));
                     detalle.setDireccionReferidoReferencia(resultSet.getString("direccionReferidoReferencia"));
 
-                    System.out.println(detalle.getClienteNombre());
                     clientesDetalles.add(detalle);
                 }
 
@@ -69,7 +68,6 @@ public class ClienteDao {
                 String columnName = metaData.getColumnName(i);
                 TableColumn<ClienteDetalle, String> column = new TableColumn<>(columnName);
                 column.setCellValueFactory(new PropertyValueFactory<>(columnName));
-                System.out.println(columnName);
                 columns.add(column);
             }
         }catch(Exception e){

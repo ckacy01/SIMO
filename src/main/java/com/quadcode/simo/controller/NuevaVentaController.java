@@ -1,9 +1,8 @@
 package com.quadcode.simo.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 
 /**
  * NuevaVentaController.java
@@ -27,7 +26,22 @@ public class NuevaVentaController extends NavBarController{
     private ComboBox menuMica;
     @FXML
     private ComboBox menuTinte;
-
+    @FXML
+    private ComboBox menuMetodo;
+    @FXML
+    private ComboBox menuAbono;
+    @FXML
+    private Label lblSubTotal;
+    @FXML
+    private TextField fdlEnganche;
+    @FXML
+    private Pane btnGenerarImpri;
+    @FXML
+    private Pane btnGenerar;
+    @FXML
+    private Pane btnLimpiar;
+    @FXML
+    private TableView<NuevaVenta> tbNuevaVenta;
 
     @FXML
     public void initialize() {

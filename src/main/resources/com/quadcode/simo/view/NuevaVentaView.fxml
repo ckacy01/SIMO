@@ -218,21 +218,11 @@
                         </FXCollections>
                      </items>
                   </ComboBox>
-                  <Text layoutX="36.0" layoutY="402.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Metodo de pago:" />
-                  <ComboBox fx:id="menuMetodo" layoutX="151.0" layoutY="384.0" prefHeight="26.0" prefWidth="108.0" promptText="Método" styleClass="form-text-field">
-                     <items>
-                        <FXCollections fx:factory="observableArrayList">
-                           <String fx:value="Efectivo" />
-                           <String fx:value="Tarjeta de credito" />
-                           <String fx:value="Tarjeta de debito" />
-                        </FXCollections>
-                     </items>
-                  </ComboBox>
                   <Text layoutX="22.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" styleClass="normal_font" text="Paciente" />
                   <Text layoutX="22.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" styleClass="normal_font" text="Producto" />
                   <Text layoutX="22.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" styleClass="normal_font" text="Pago" />
-                  <Text layoutX="42.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Forma de pago:" />
-                  <ComboBox fx:id="menuPago" layoutX="151.0" layoutY="436.0" prefHeight="26.0" prefWidth="108.0" promptText="Pago" styleClass="form-text-field">
+                  <Text layoutX="48.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Forma de pago:" />
+                  <ComboBox fx:id="menuPago" layoutX="157.0" layoutY="419.0" prefHeight="26.0" prefWidth="108.0" promptText="Pago" styleClass="form-text-field">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
                            <String fx:value="CREDITO" />
@@ -240,8 +230,8 @@
                         </FXCollections>
                      </items>
                   </ComboBox>
-                  <Text layoutX="30.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Periodo de Abonos:" />
-                  <ComboBox fx:id="menuAbono" disable="true" layoutX="151.0" layoutY="488.0" prefHeight="26.0" prefWidth="108.0" promptText="Pago" styleClass="form-text-field">
+                  <Text layoutX="36.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Periodo de Abonos:" />
+                  <ComboBox fx:id="menuAbono" disable="true" layoutX="157.0" layoutY="471.0" prefHeight="26.0" prefWidth="108.0" promptText="Abonos" styleClass="form-text-field">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
                            <String fx:value="SEMANAL" />
@@ -254,7 +244,7 @@
                   <Text layoutX="405.0" layoutY="446.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Enganche:" />
                   <Text layoutX="430.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Saldo:" />
                   <Label fx:id="lblSubTotal" layoutX="483.0" layoutY="388.0" styleClass="normal_font" text="\$0" textFill="#ff8d00" />
-                  <TextField fx:id="fdlEnganche" layoutX="482.0" layoutY="429.0" styleClass="form-text-field" />
+                  <TextField fx:id="fdlEnganche" layoutX="482.0" layoutY="429.0" promptText="Enganche" styleClass="form-text-field" />
                   <Label fx:id="lblSaldo" layoutX="483.0" layoutY="479.0" styleClass="normal_font" text="\$0" textAlignment="CENTER" textFill="#ff8d00" />
                   <DatePicker fx:id="dateBoxVenta" layoutX="469.0" layoutY="81.0" prefHeight="25.0" prefWidth="116.0" promptText="Fecha de la venta" />
                   <Text layoutX="367.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16;" styleClass="normal_font" text="Tabla de Costos" />

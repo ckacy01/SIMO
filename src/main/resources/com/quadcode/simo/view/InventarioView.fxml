@@ -148,7 +148,7 @@
                      </font></Label>
                   <Pane layoutX="646.0" layoutY="552.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/com/quadcode/simo/img/quadcodelogo.png'); -fx-background-position: center center; -fx-background-size: cover;" />
                   <Pane layoutX="711.0" layoutY="552.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/com/quadcode/simo/img/LogoMasOptica.jpg'); -fx-background-position: center center; -fx-background-size: cover;" />
-                  <TextField fx:id="fldBuscarCliente" layoutX="32.0" layoutY="23.0" prefHeight="29.0" prefWidth="240.0" promptText="Buscar aqui... " styleClass="search-text-field" />
+                  <TextField fx:id="fldBuscarLente" layoutX="32.0" layoutY="23.0" prefHeight="29.0" prefWidth="240.0" promptText="Buscar aqui... " styleClass="search-text-field" />
                   <TableView fx:id="tbLentes" layoutX="32.0" layoutY="62.0" prefHeight="240.0" prefWidth="335.0" />
                   <Text layoutX="32.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal_font" text="Lentes/Armazones" />
                   <Text layoutX="381.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal_font" text="Información sobre el armazon" />
@@ -167,7 +167,7 @@
                      </padding>
                   </TextField>
                   <Text layoutX="386.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Precio credito:" />
-                  <TextField fx:id="fldContadoC" layoutX="475.0" layoutY="212.0" prefHeight="20.0" prefWidth="229.0" promptText="Credito" styleClass="form-text-field">
+                  <TextField fx:id="fldCreditoL" layoutX="475.0" layoutY="212.0" prefHeight="20.0" prefWidth="229.0" promptText="Credito" styleClass="form-text-field">
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
@@ -178,7 +178,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
                   </TextField>
-                  <Pane fx:id="btnGuardarL" layoutX="696.0" layoutY="273.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #007BFF;">
+                  <Pane fx:id="btnGuardarL" layoutX="696.0" layoutY="273.0" onMouseClicked="#insertarLente" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #007BFF;">
                      <children>
                         <Text fill="WHITE" layoutX="8.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="AGREGAR" textAlignment="CENTER">
                            <cursor>
@@ -187,7 +187,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnLimpiarL" layoutX="606.0" layoutY="273.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
+                  <Pane fx:id="btnLimpiarL" layoutX="606.0" layoutY="273.0" onMouseClicked="#limpiarCamposLente" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
                      <children>
                         <Text fill="WHITE" layoutX="12.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="LIMPIAR">
                            <cursor>
@@ -196,7 +196,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnModificarL" layoutX="516.0" layoutY="273.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
+                  <Pane fx:id="btnModificarL" layoutX="516.0" layoutY="273.0" onMouseClicked="#modificarLente" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
                      <children>
                         <Text fill="WHITE" layoutX="3.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="MODIFICAR">
                            <cursor>
@@ -216,29 +216,29 @@
                <children>
                   <Pane layoutX="646.0" layoutY="552.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/com/quadcode/simo/img/quadcodelogo.png'); -fx-background-position: center center; -fx-background-size: cover;" />
                   <Pane layoutX="711.0" layoutY="552.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: url('/com/quadcode/simo/img/LogoMasOptica.jpg'); -fx-background-position: center center; -fx-background-size: cover;" />
-                  <TextField fx:id="fldBuscarCliente1" layoutX="32.0" layoutY="23.0" prefHeight="29.0" prefWidth="240.0" promptText="Buscar aqui... " styleClass="search-text-field" />
+                  <TextField fx:id="fldBuscarMica" layoutX="32.0" layoutY="23.0" prefHeight="29.0" prefWidth="240.0" promptText="Buscar aqui... " styleClass="search-text-field" />
                   <TableView fx:id="tbMica" layoutX="32.0" layoutY="62.0" prefHeight="240.0" prefWidth="335.0" />
                   <Text layoutX="32.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal_font" text="Micas" />
                   <Text layoutX="381.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal_font" text="Información sobre micas" />
                   <Text layoutX="386.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Nombre:" />
-                  <TextField fx:id="fldNombreL1" layoutX="476.0" layoutY="81.0" prefHeight="20.0" prefWidth="229.0" promptText="Ingrese un nombre" styleClass="form-text-field">
+                  <TextField fx:id="fldNombreM" layoutX="476.0" layoutY="81.0" prefHeight="20.0" prefWidth="229.0" promptText="Ingrese un nombre" styleClass="form-text-field">
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
                   </TextField>
                   <Text layoutX="386.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Precio contado:" />
-                  <TextField fx:id="fldContadoL1" layoutX="475.0" layoutY="115.0" prefHeight="20.0" prefWidth="229.0" promptText="Contado" styleClass="form-text-field">
+                  <TextField fx:id="fldContadoM" layoutX="475.0" layoutY="115.0" prefHeight="20.0" prefWidth="229.0" promptText="Contado" styleClass="form-text-field">
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
                   </TextField>
                   <Text layoutX="386.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Precio credito:" />
-                  <TextField fx:id="fldContadoC1" layoutX="475.0" layoutY="149.0" prefHeight="20.0" prefWidth="229.0" promptText="Credito" styleClass="form-text-field">
+                  <TextField fx:id="fldCreditoM" layoutX="475.0" layoutY="149.0" prefHeight="20.0" prefWidth="229.0" promptText="Credito" styleClass="form-text-field">
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
                   </TextField>
-                  <Pane fx:id="btnGuardarL1" layoutX="696.0" layoutY="273.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #007BFF;">
+                  <Pane fx:id="btnGuardarL1" layoutX="696.0" layoutY="273.0" onMouseClicked="#insertarMica" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #007BFF;">
                      <children>
                         <Text fill="WHITE" layoutX="8.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="AGREGAR" textAlignment="CENTER">
                            <cursor>
@@ -247,7 +247,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnLimpiarL1" layoutX="606.0" layoutY="273.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
+                  <Pane fx:id="btnLimpiarL1" layoutX="606.0" layoutY="273.0" onMouseClicked="#limpiarCamposMicas" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
                      <children>
                         <Text fill="WHITE" layoutX="12.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="LIMPIAR">
                            <cursor>
@@ -258,7 +258,7 @@
                   </Pane>
                   <Pane fx:id="btnModificarL1" layoutX="516.0" layoutY="273.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
                      <children>
-                        <Text fill="WHITE" layoutX="3.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="MODIFICAR">
+                        <Text fill="WHITE" layoutX="3.0" layoutY="19.0" onMouseClicked="#modificarMica" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="MODIFICAR">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
