@@ -1,5 +1,6 @@
 package com.quadcode.simo.controller;
 
+import com.quadcode.simo.model.NuevaVenta;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;

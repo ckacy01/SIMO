@@ -225,8 +225,8 @@
                   <ComboBox fx:id="menuPago" layoutX="157.0" layoutY="419.0" prefHeight="26.0" prefWidth="108.0" promptText="Pago" styleClass="form-text-field">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
-                           <String fx:value="CREDITO" />
-                           <String fx:value="CONTADO" />
+                           <String fx:value="Credito" />
+                           <String fx:value="Contado" />
                         </FXCollections>
                      </items>
                   </ComboBox>
@@ -234,9 +234,9 @@
                   <ComboBox fx:id="menuAbono" disable="true" layoutX="157.0" layoutY="471.0" prefHeight="26.0" prefWidth="108.0" promptText="Abonos" styleClass="form-text-field">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
-                           <String fx:value="SEMANAL" />
-                           <String fx:value="QUINCENAL" />
-                           <String fx:value="MENSUAL" />
+                           <String fx:value="Semanal" />
+                           <String fx:value="Quincenal" />
+                           <String fx:value="Mensual" />
                         </FXCollections>
                      </items>
                   </ComboBox>
