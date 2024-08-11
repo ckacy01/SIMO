@@ -20,6 +20,7 @@ import javax.swing.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * VentasController.java
@@ -109,6 +110,7 @@ public class VentasController extends NavBarController{
                lblTotal.setText(newValue.getCostoTotal().toString());
                fdlEnganche.setText(newValue.getEnganche().toString());
                dateBoxVenta.setValue(newValue.getFechaVenta().toLocalDate());
+               menuAbono.setValue(newValue.getPeriodoAbonos());
 
                actualizarEstadoAbono(String.valueOf(menuPago.getValue()));
            }
@@ -178,6 +180,71 @@ public class VentasController extends NavBarController{
     }
 
     @FXML
+    public void modificarVenta(){
+        try{
+            Venta venta = new Venta();
+            venta.setId(Integer.parseInt(lblNventa.getText()));
+            venta.setNombreProducto(String.valueOf(menuArmazon.getValue()));
+            venta.setNombreMica(String.valueOf(menuMica.getValue()));
+            venta.setEnganche(Float.parseFloat(fdlEnganche.getText()));
+            venta.setCostoTotal(Float.parseFloat(lblTotal.getText()));
+            venta.setSaldoActual(Float.parseFloat(lblSaldo.getText()));
+            venta.setFechaVenta(Date.valueOf(dateBoxVenta.getValue()));
+            venta.setTinte(String.valueOf(menuTinte.getValue()));
+            venta.setMetodoPago(String.valueOf(menuPago.getValue()));
+            venta.setPeriodoAbonos(String.valueOf(menuAbono.getValue()));
+
+            Alert alert = showAlertConfirmation("Modificar Venta!", "Al modificar la venta cambiara la deuda del cliente, ¿Seguro que desea modificar?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK){
+                ventasDao.modificarVenta(venta);
+            }
+            mostrarVentas();
+            limpiarCampos();
+        }catch (Exception e){
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error al Modificar!", "Hubo un error al intentar modificar el Lente: " + fldNombreP.getText() + "favor de verificar los campos obligatorios marcados con '*'");
+
+        }
+    }
+
+
+    @FXML
+    public void limpiarCampos(){
+        fldNombreP.clear();
+        fldNombreC.clear();
+        fdlEnganche.clear();
+        lblNabonos.setText("0");
+        lblNventa.setText("0");
+        lblTotal.setText("$0");
+        lblSaldo.setText("$0");
+        menuArmazon.setValue(null);
+        menuMica.setValue(null);
+        menuTinte.setValue(null);
+        menuPago.setValue(null);
+        menuAbono.setValue(null);
+
+
+    }
+
+
+    public Alert showAlertConfirmation( String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        return alert;
+    }
+
+    public void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
     public void verAbonos(){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/AbonosView.fxml"));
@@ -191,6 +258,5 @@ public class VentasController extends NavBarController{
         }catch(Exception e){
             e.printStackTrace();
         }
-
     }
 }

@@ -138,7 +138,7 @@ public class InventarioController extends NavBarController{
         limpiarCamposMicas();
         }catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error al Inserar!", "Hubo un error al intentar insertar la Mica: " + fldNombreM.getText() + "favor de verificar los campos obligatorios marcados con '*'");
+            showAlert(Alert.AlertType.ERROR, "Error al Insretar!", "Hubo un error al intentar insertar la Mica: " + fldNombreM.getText() + "favor de verificar los campos obligatorios marcados con '*'");
         }
     }
 

@@ -179,7 +179,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnLimpiar" layoutX="596.0" layoutY="270.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
+                  <Pane fx:id="btnLimpiar" layoutX="596.0" layoutY="270.0" onMouseClicked="#limpiarCampos" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
                      <children>
                         <Text fill="WHITE" layoutX="12.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="LIMPIAR">
                            <cursor>
@@ -188,7 +188,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Pane fx:id="btnModificar" layoutX="495.0" layoutY="270.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
+                  <Pane fx:id="btnModificar" layoutX="495.0" layoutY="270.0" onMouseClicked="#modificarVenta" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #87CEEB;">
                      <children>
                         <Text fill="WHITE" layoutX="3.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="MODIFICAR">
                            <cursor>
@@ -257,9 +257,9 @@
                   <ComboBox fx:id="menuAbono" disable="true" layoutX="354.0" layoutY="188.0" prefHeight="26.0" prefWidth="108.0" promptText="Pago" styleClass="form-text-field">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
-                           <String fx:value="SEMANAL" />
-                           <String fx:value="QUINCENAL" />
-                           <String fx:value="MENSUAL" />
+                           <String fx:value="Semanal" />
+                           <String fx:value="Quincenal" />
+                           <String fx:value="Mensual" />
                         </FXCollections>
                      </items>
                   </ComboBox>

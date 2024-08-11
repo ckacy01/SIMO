@@ -128,7 +128,7 @@ public class InventarioDao {
     }
 
     public void insertarMica(Mica micas){
-        String sql = "{CALL insertar_mica(?,?,?)}";
+        String sql = "{CALL insertar_micas(?,?,?)}";
         try(CallableStatement stmt = connection.prepareCall(sql)){
             stmt.setString(1, micas.getTipo());
             stmt.setFloat(2, micas.getContado());

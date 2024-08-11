@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.mariadb.jdbc.Connection;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -166,6 +167,25 @@ public class VentasDao {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public void modificarVenta(Venta venta){
+      String sql = "{CALL actualizar_venta(?,?,?,?,?,?,?,?,?,?)}";
+      try(CallableStatement stmt = connection.prepareCall(sql)){
+          stmt.setInt(1, venta.getId());
+          stmt.setString(2, venta.getNombreProducto());
+          stmt.setFloat(3,venta.getEnganche());
+          stmt.setString(4, venta.getNombreMica());
+          stmt.setString(5, venta.getMetodoPago());
+          stmt.setString(6, venta.getTinte());
+          stmt.setDate(7,venta.getFechaVenta());
+          stmt.setFloat(8,venta.getCostoTotal());
+          stmt.setFloat(9,venta.getSaldoActual());
+          stmt.setString(10,venta.getPeriodoAbonos());
+          stmt.execute();
+      }catch (Exception e){
+          e.printStackTrace();
+      }
     }
 }
 
