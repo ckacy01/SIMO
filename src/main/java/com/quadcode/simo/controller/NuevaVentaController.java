@@ -191,8 +191,12 @@ public class NuevaVentaController extends NavBarController{
             nuevaVenta.setNombreProducto(menuArmazon.getValue().toString());
             nuevaVenta.setNombreMica(menuMica.getValue().toString());
             nuevaVenta.setTinte(menuTinte.getValue().toString());
-            nuevaVenta.setMetodoPago(menuMetodo.getValue().toString());
-            nuevaVenta.setPeriodoAbonos(menuAbono.getValue().toString());
+            if(menuAbono.getValue() != null){
+                nuevaVenta.setPeriodoAbonos(menuAbono.getValue().toString());
+            }else{
+                nuevaVenta.setPeriodoAbonos("");
+            }
+            nuevaVenta.setMetodoPago(menuPago.getValue().toString());
             nuevaVenta.setCostoTotal(Float.parseFloat(lblTotal.getText()));
             nuevaVenta.setSaldoActual(Float.parseFloat(lblSaldo.getText()));
             nuevaVenta.setEnganche(Float.parseFloat(fdlEnganche.getText()));
@@ -200,6 +204,7 @@ public class NuevaVentaController extends NavBarController{
             showAlert(Alert.AlertType.INFORMATION, "Agregar Venta", "Venta Agregada con exito!");
         }catch (Exception e){
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Error al agregar Venta");
         }
     }
 
