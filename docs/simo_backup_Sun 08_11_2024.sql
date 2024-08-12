@@ -30,7 +30,7 @@ CREATE TABLE `abonos` (
   PRIMARY KEY (`Id`),
   KEY `VentaID` (`VentaId`),
   CONSTRAINT `abonos_ibfk_1` FOREIGN KEY (`VentaId`) REFERENCES `ventas` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,8 +39,6 @@ CREATE TABLE `abonos` (
 
 LOCK TABLES `abonos` WRITE;
 /*!40000 ALTER TABLE `abonos` DISABLE KEYS */;
-INSERT INTO `abonos` VALUES
-(1,1,'2024-08-12',16);
 /*!40000 ALTER TABLE `abonos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -73,7 +71,7 @@ LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
 INSERT INTO `clientes` VALUES
 (2,'Juan Elias Cordoba','5551234',1,1),
-(4,'a','a',2,5),
+(4,'alioo','a',2,5),
 (5,'Juan Pérez','555-1234',3,25),
 (6,'Juan Jose Talador','555-1234',4,27),
 (7,'Uziel Isaac Larez','669',5,29),
@@ -97,12 +95,15 @@ CREATE TABLE `detallesventa` (
   `MicaId` int(11) NOT NULL,
   `MetodoDePago` enum('Credito','Contado') NOT NULL,
   `Tinte` varchar(20) DEFAULT NULL,
+  `VentaId` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `ProductoID` (`ProductoId`),
   KEY `detallesventa_ibfk` (`MicaId`),
+  KEY `VentaId` (`VentaId`),
   CONSTRAINT `detallesventa_ibfk` FOREIGN KEY (`MicaId`) REFERENCES `micas` (`Id`),
-  CONSTRAINT `detallesventa_ibfk_2` FOREIGN KEY (`ProductoId`) REFERENCES `productos` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  CONSTRAINT `detallesventa_ibfk_2` FOREIGN KEY (`ProductoId`) REFERENCES `productos` (`Id`),
+  CONSTRAINT `detallesventa_ibfk_3` FOREIGN KEY (`VentaId`) REFERENCES `ventas` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,7 +113,7 @@ CREATE TABLE `detallesventa` (
 LOCK TABLES `detallesventa` WRITE;
 /*!40000 ALTER TABLE `detallesventa` DISABLE KEYS */;
 INSERT INTO `detallesventa` VALUES
-(1,1,500,1,'Contado',NULL);
+(3,1,200,5,'Credito','Gris',7);
 /*!40000 ALTER TABLE `detallesventa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +218,7 @@ CREATE TABLE `micas` (
   `Contado` float NOT NULL,
   `Credito` float NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +232,8 @@ INSERT INTO `micas` VALUES
 (2,'Mica #2',1150,1450),
 (3,'Mica #3',1500,1950),
 (4,'Mica #4',2100,2600),
-(5,'Mica #5',2700,3200);
+(5,'Mica #5',2700,3200),
+(6,'Mica #6',800,800);
 /*!40000 ALTER TABLE `micas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,7 +344,7 @@ CREATE TABLE `ojoderecho` (
 LOCK TABLES `ojoderecho` WRITE;
 /*!40000 ALTER TABLE `ojoderecho` DISABLE KEYS */;
 INSERT INTO `ojoderecho` VALUES
-(1,2,1,0.5,1.5,90),
+(1,1.5,0.5,0.25,1.5,85),
 (2,1.5,0.5,0.25,1.5,85),
 (3,2.5,-1,2,60,180),
 (4,47,7,14,12,4),
@@ -377,7 +379,7 @@ CREATE TABLE `ojoizquierdo` (
 LOCK TABLES `ojoizquierdo` WRITE;
 /*!40000 ALTER TABLE `ojoizquierdo` DISABLE KEYS */;
 INSERT INTO `ojoizquierdo` VALUES
-(1,1.5,0.5,0.25,1,85),
+(1,1.5,0.5,0.25,1.5,85),
 (2,1.5,0.5,0.25,1.5,85),
 (3,2.75,-1.25,2.5,62,170),
 (4,-5,16,14,12,10),
@@ -411,7 +413,7 @@ CREATE TABLE `pacientes` (
 LOCK TABLES `pacientes` WRITE;
 /*!40000 ALTER TABLE `pacientes` DISABLE KEYS */;
 INSERT INTO `pacientes` VALUES
-(1,'Pedro Gómez',4),
+(1,'Pedro Gómezzz',4),
 (2,'Jorge Avila',2),
 (3,'Carlos Pérez',5),
 (4,'Pedrito Alcachofas',9),
@@ -450,33 +452,6 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Table structure for table `plandepagos`
---
-
-DROP TABLE IF EXISTS `plandepagos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `plandepagos` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `VentaId` int(11) NOT NULL,
-  `TipoPlan` enum('Semanal','Quincenal','Mensual') DEFAULT NULL,
-  `FechaInicio` date DEFAULT NULL,
-  PRIMARY KEY (`Id`),
-  KEY `VentaID` (`VentaId`),
-  CONSTRAINT `plandepagos_ibfk_1` FOREIGN KEY (`VentaId`) REFERENCES `ventas` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `plandepagos`
---
-
-LOCK TABLES `plandepagos` WRITE;
-/*!40000 ALTER TABLE `plandepagos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `plandepagos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `productos`
 --
 
@@ -491,7 +466,7 @@ CREATE TABLE `productos` (
   `PrecioCredito` float NOT NULL,
   `Descripcion` text DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -507,7 +482,8 @@ INSERT INTO `productos` VALUES
 (4,'Lente #4',12,2400,3100,'null'),
 (5,'Lente #5',0,3350,4200,NULL),
 (6,'Lente #6',2,800,1600,'Lentes rayo mcqueen'),
-(7,'Lente #7',0,500,3100,'Lentes perrornes de barbie');
+(7,'Lente #7',0,500,3100,'Lentes perrornes de barbie'),
+(8,'Lente 6',8,500,500,'Lente 7');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -592,7 +568,7 @@ CREATE TABLE `ventas` (
   PRIMARY KEY (`Id`),
   KEY `ClienteID` (`PacienteId`),
   CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`PacienteId`) REFERENCES `pacientes` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -602,9 +578,38 @@ CREATE TABLE `ventas` (
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
 INSERT INTO `ventas` VALUES
-(1,1,'2024-08-11',2000,2000,'Mensual');
+(7,2,'2024-08-11',4800,4800,'Mensual');
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `simo`.`actualizar_stock` AFTER INSERT ON ventas
+FOR EACH ROW
+BEGIN
+    DECLARE producto_id INT;
+
+    -- Obtén el ProductoId del detalle de la venta asociada
+    SELECT ProductoId INTO producto_id
+    FROM detallesventa
+    WHERE Id = NEW.Id;
+
+    -- Reduce el stock del producto
+    UPDATE productos
+    SET Stock = Stock - 1
+    WHERE Id = producto_id;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `obtener_clientes_detalle`
@@ -673,7 +678,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `obtener_venta_detalles` AS (select `ventas`.`Id` AS `Id`,`clientes`.`Nombre` AS `NombreCliente`,`pacientes`.`Nombre` AS `NombrePaciente`,`productos`.`Nombre` AS `NombreProducto`,`micas`.`Tipo` AS `NombreMica`,`detallesventa`.`Tinte` AS `Tinte`,`detallesventa`.`MetodoDePago` AS `MetodoPago`,`plandepagos`.`TipoPlan` AS `PeriodoAbonos`,`ventas`.`SaldoActual` AS `SaldoActual`,`ventas`.`TotalVenta` AS `CostoTotal`,`detallesventa`.`Enganche` AS `Enganche`,`ventas`.`FechaVenta` AS `FechaVenta` from ((((((`ventas` join `pacientes` on(`ventas`.`PacienteId` = `pacientes`.`Id`)) join `clientes` on(`pacientes`.`ClienteId` = `clientes`.`Id`)) join `detallesventa` on(`detallesventa`.`Id` = `ventas`.`Id`)) join `productos` on(`detallesventa`.`ProductoId` = `productos`.`Id`)) join `micas` on(`detallesventa`.`MicaId` = `micas`.`Id`)) left join `plandepagos` on(`ventas`.`Id` = `plandepagos`.`VentaId`))) */;
+/*!50001 VIEW `obtener_venta_detalles` AS (select `ventas`.`Id` AS `Id`,`clientes`.`Nombre` AS `NombreCliente`,`pacientes`.`Nombre` AS `NombrePaciente`,`productos`.`Nombre` AS `NombreProducto`,`micas`.`Tipo` AS `NombreMica`,`detallesventa`.`Tinte` AS `Tinte`,`detallesventa`.`MetodoDePago` AS `MetodoPago`,`ventas`.`PlanDePagos` AS `PeriodoAbonos`,`ventas`.`SaldoActual` AS `SaldoActual`,`ventas`.`TotalVenta` AS `CostoTotal`,`detallesventa`.`Enganche` AS `Enganche`,`ventas`.`FechaVenta` AS `FechaVenta` from (((((`ventas` join `pacientes` on(`ventas`.`PacienteId` = `pacientes`.`Id`)) join `clientes` on(`pacientes`.`ClienteId` = `clientes`.`Id`)) join `detallesventa` on(`detallesventa`.`VentaId` = `ventas`.`Id`)) join `productos` on(`detallesventa`.`ProductoId` = `productos`.`Id`)) left join `micas` on(`detallesventa`.`MicaId` = `micas`.`Id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -705,4 +710,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-11 16:03:44
+-- Dump completed on 2024-08-11 20:44:13
