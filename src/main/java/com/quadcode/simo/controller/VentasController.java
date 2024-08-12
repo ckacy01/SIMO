@@ -142,7 +142,7 @@ public class VentasController extends NavBarController{
         menuMica.valueProperty().addListener((observable, oldValue, newValue) -> ConfigurarAcciones());
     }
 
-    private void listaMicasLentes(){
+    public void listaMicasLentes(){
         List<String> nombrelentes = ventasDao.obtenerNombresProductos();
         ObservableList<String> observableList = FXCollections.observableArrayList(nombrelentes);
         menuArmazon.setItems(observableList);

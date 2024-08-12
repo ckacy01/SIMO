@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
@@ -243,7 +244,7 @@
                   <Text layoutX="409.0" layoutY="402.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Subtotal:" />
                   <Text layoutX="405.0" layoutY="446.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Enganche:" />
                   <Text layoutX="430.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 14;" styleClass="form-text" text="Saldo:" />
-                  <Label fx:id="lblSubTotal" layoutX="483.0" layoutY="388.0" styleClass="normal_font" text="\$0" textFill="#ff8d00" />
+                  <Label fx:id="lblTotal" layoutX="483.0" layoutY="388.0" styleClass="normal_font" text="\$0" textFill="#ff8d00" />
                   <TextField fx:id="fdlEnganche" layoutX="482.0" layoutY="429.0" promptText="Enganche" styleClass="form-text-field" />
                   <Label fx:id="lblSaldo" layoutX="483.0" layoutY="479.0" styleClass="normal_font" text="\$0" textAlignment="CENTER" textFill="#ff8d00" />
                   <DatePicker fx:id="dateBoxVenta" layoutX="469.0" layoutY="81.0" prefHeight="25.0" prefWidth="116.0" promptText="Fecha de la venta" />
@@ -251,6 +252,7 @@
                   <Text fill="RED" layoutX="23.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="campos obligatorios (*)" />
                   <Text fill="RED" layoutX="397.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
                   <Text fill="RED" layoutX="591.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <ListView fx:id="listView" layoutX="188.0" layoutY="102.0" prefHeight="200.0" prefWidth="229.0" visible="false" />
                </children>
             </Pane>
             <Text layoutX="230.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nueva Venta">

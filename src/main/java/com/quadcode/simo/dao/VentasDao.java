@@ -1,8 +1,10 @@
 package com.quadcode.simo.dao;
 
+import com.quadcode.simo.controller.VentasController;
 import com.quadcode.simo.model.Lentes;
 import com.quadcode.simo.model.Mica;
 import com.quadcode.simo.model.Venta;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.mariadb.jdbc.Connection;
@@ -185,7 +187,7 @@ public class VentasDao {
           stmt.execute();
       }catch (Exception e){
           e.printStackTrace();
-      }
     }
-}
+}}
+
 
