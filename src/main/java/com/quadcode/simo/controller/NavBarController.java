@@ -7,12 +7,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -29,7 +33,9 @@ import java.util.Optional;
 public class NavBarController {
 
     private static String username;
-
+    private static LocalDate fecha = LocalDate.now();
+    @FXML
+    private Label lblFecha;
     @FXML
     private MenuButton menuUsuario;
 
@@ -133,6 +139,9 @@ public class NavBarController {
 
     public void setMenuUser(){
         menuUsuario.setText(username);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
+        String fechaFormateada = fecha.format(formatter);
+        lblFecha.setText(fechaFormateada);
     }
 
 }

@@ -47,7 +47,6 @@ public class VentasDao {
                 venta.setCostoTotal(rs.getFloat("CostoTotal"));
                 venta.setEnganche(rs.getFloat("Enganche"));
                 venta.setFechaVenta(rs.getDate("FechaVenta"));
-                System.out.println(venta.getFechaVenta());
                 ventas.add(venta);
             }
         }catch (Exception e){
