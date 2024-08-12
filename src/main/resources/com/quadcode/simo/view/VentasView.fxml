@@ -270,6 +270,11 @@
                   <DatePicker fx:id="dateBoxVenta" layoutX="277.0" layoutY="40.0" prefHeight="25.0" prefWidth="108.0" promptText="Fecha de la venta" />
                   <Text layoutX="62.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Enganche:" />
                   <TextField fx:id="fdlEnganche" layoutX="128.0" layoutY="239.0" prefHeight="26.0" prefWidth="108.0" promptText="Enganche" styleClass="form-text-field" />
+                  <Text fill="RED" layoutX="175.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="campos obligatorios (*)" />
+                  <Text fill="RED" layoutX="28.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="55.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="470.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="445.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
                </children>
             </Pane>
          </children>

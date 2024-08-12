@@ -68,20 +68,22 @@ public class VentasController extends NavBarController{
     private TextField fdlEnganche;
 
     private VentasDao ventasDao;
-    private InventarioDao inventarioDao;
+    private int ventaId;
+    private String nombreCliente;
+    private String nombreP;
+    private Float CostoTotal;
+    private Float Deuda;
 
     @FXML
     public void initialize() {
         setMenuUser();
         ventasDao = new VentasDao();
-        inventarioDao = new InventarioDao();
         List<TableColumn <Venta, ?>> columns =  ventasDao.getColumnsFromDatabase();
         tblVentas.getColumns().addAll(columns);
         mostrarVentas();
         configurarEventos();
         listaMicasLentes();
         configurarListeners();
-
 
     }
 
@@ -98,6 +100,11 @@ public class VentasController extends NavBarController{
     public void configurarEventos(){
         tblVentas.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
            if (newValue != null) {
+               ventaId = newValue.getId();
+               CostoTotal = newValue.getCostoTotal();
+               Deuda = newValue.getSaldoActual();
+               nombreCliente = newValue.getNombreCliente();
+               nombreP = newValue.getNombrePaciente();
                lblNventa.setText(String.valueOf(newValue.getId()));
                lblNabonos.setText(String.valueOf(ventasDao.obtenerNAbonos(newValue.getId())));
                fldNombreC.setText(newValue.getNombreCliente());
@@ -158,13 +165,9 @@ public class VentasController extends NavBarController{
         if (menuPago.valueProperty().getValue().equals("Contado") && (menuMica.getValue() != null || menuArmazon.getValue() != null)) {
             costoLente = lentes.getPrecioContado();
             costoMica = micas.getContado();
-            System.out.println(costoLente);
-            System.out.println(costoMica);
         }else if (menuMica.getValue() != null || menuArmazon.getValue() != null){
             costoLente = lentes.getPrecioCredito();
             costoMica = micas.getCredito();
-            System.out.println(costoMica);
-            System.out.println(costoLente);
         }
 
         if(!fdlEnganche.getText().isEmpty()){
@@ -249,12 +252,19 @@ public class VentasController extends NavBarController{
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/AbonosView.fxml"));
             Parent abonosView = loader.load();
+            AbonosController controller = loader.getController();
+            controller.setDatos(nombreCliente, nombreP, Deuda, CostoTotal, ventaId);
             Scene scene = new Scene(abonosView);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Abonos");
             stage.setResizable(false);
             stage.show();
+            stage.centerOnScreen();
+            stage.toFront();
+            stage.setOnCloseRequest(event -> {
+              mostrarVentas();
+            });
         }catch(Exception e){
             e.printStackTrace();
         }

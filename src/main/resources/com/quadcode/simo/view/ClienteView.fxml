@@ -288,6 +288,17 @@
                      </padding>
                   </TextField>
                   <Text layoutX="427.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="form-text" text="Referencia:" />
+                  <Text fill="RED" layoutX="40.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="349.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="40.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="399.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="574.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="37.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="329.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="609.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="37.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="611.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text fill="RED" layoutX="214.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="campos obligatorios (*)" />
                </children>
             </Pane>
          </children>

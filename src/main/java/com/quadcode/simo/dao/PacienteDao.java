@@ -68,7 +68,6 @@ public class PacienteDao {
                 String columnName = metaData.getColumnName(i);
                 TableColumn<Paciente, String> column = new TableColumn<>(columnName);
                 column.setCellValueFactory(new PropertyValueFactory<>(columnName));
-                System.out.println(columnName);
                 columns.add(column);
             }
         }catch(Exception e){

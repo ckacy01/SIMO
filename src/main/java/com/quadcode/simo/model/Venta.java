@@ -1,7 +1,7 @@
 package com.quadcode.simo.model;
 
 import java.sql.Date;
-import java.time.LocalDate;
+
 
 public class Venta {
     private int Id;
