@@ -23,10 +23,12 @@ public class AbonosDao {
         }
     }
 
-    public List<Abonos> ObtenerAbonos() {
+    public List<Abonos> ObtenerAbonos(int ventaid) {
         List<Abonos> abonos = new ArrayList<>();
-        String sql = "SELECT * FROM abonos";
+        String sql = "SELECT * FROM abonos where VentaId = ?";
         try(PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, ventaid);
+            System.out.println(ventaid);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Abonos abono = new Abonos();
@@ -35,6 +37,8 @@ public class AbonosDao {
                 abono.setFechaAbono(rs.getDate("FechaAbono"));
                 abono.setMonto(rs.getFloat("Monto"));
                 abonos.add(abono);
+                System.out.println(abono.getId());
+
             }
         }catch(Exception e){
             e.printStackTrace();

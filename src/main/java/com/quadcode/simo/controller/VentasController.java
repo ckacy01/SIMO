@@ -18,9 +18,12 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 /**
  * VentasController.java
@@ -84,7 +87,8 @@ public class VentasController extends NavBarController{
         configurarEventos();
         listaMicasLentes();
         configurarListeners();
-
+        configurarBusqueda();
+        validarNumeros();
     }
 
     public void mostrarVentas() {
@@ -97,30 +101,79 @@ public class VentasController extends NavBarController{
         }
     }
 
+    private void configurarBusqueda() {
+        fldBuscarCliente.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarVentasPorNombreCliente(newValue);
+        });
+        dateBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null) {
+                filtrarVentasPorFecha(newValue);
+            }else{
+                mostrarVentas();
+            }
+        });
+    }
+
+    private void filtrarVentasPorFecha(LocalDate fecha1) {
+        try {
+            List<Venta> ventas = ventasDao.obtenerVentas();
+
+            // Filtrar la lista de ventas por el nombre del cliente
+            List<Venta> ventasFiltradas = ventas.stream()
+                    .filter(venta -> venta.getFechaVenta().toLocalDate().isEqual(fecha1))
+                    .collect(Collectors.toList());
+
+            // Actualizar la tabla con la lista filtrada
+            ObservableList<Venta> observableList = FXCollections.observableArrayList(ventasFiltradas);
+            tblVentas.setItems(observableList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void filtrarVentasPorNombreCliente(String nombreCliente) {
+        try {
+            List<Venta> ventas = ventasDao.obtenerVentas();
+
+            // Filtrar la lista de ventas por el nombre del cliente
+            List<Venta> ventasFiltradas = ventas.stream()
+                    .filter(venta -> venta.getNombreCliente().toLowerCase().contains(nombreCliente.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            // Actualizar la tabla con la lista filtrada
+            ObservableList<Venta> observableList = FXCollections.observableArrayList(ventasFiltradas);
+            tblVentas.setItems(observableList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     public void configurarEventos(){
         tblVentas.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-           if (newValue != null) {
-               ventaId = newValue.getId();
-               CostoTotal = newValue.getCostoTotal();
-               Deuda = newValue.getSaldoActual();
-               nombreCliente = newValue.getNombreCliente();
-               nombreP = newValue.getNombrePaciente();
-               lblNventa.setText(String.valueOf(newValue.getId()));
-               lblNabonos.setText(String.valueOf(ventasDao.obtenerNAbonos(newValue.getId())));
-               fldNombreC.setText(newValue.getNombreCliente());
-               fldNombreP.setText(newValue.getNombrePaciente());
-               menuPago.setValue(newValue.getMetodoPago());
-               menuArmazon.setValue(newValue.getNombreProducto());
-               menuMica.setValue(newValue.getNombreMica());
-               menuTinte.setValue(newValue.getTinte());
-               lblSaldo.setText(newValue.getSaldoActual().toString());
-               lblTotal.setText(newValue.getCostoTotal().toString());
-               fdlEnganche.setText(newValue.getEnganche().toString());
-               dateBoxVenta.setValue(newValue.getFechaVenta().toLocalDate());
-               menuAbono.setValue(newValue.getPeriodoAbonos());
+            if (newValue != null) {
+                ventaId = newValue.getId();
+                CostoTotal = newValue.getCostoTotal();
+                Deuda = newValue.getSaldoActual();
+                nombreCliente = newValue.getNombreCliente();
+                nombreP = newValue.getNombrePaciente();
+                lblNventa.setText(String.valueOf(newValue.getId()));
+                lblNabonos.setText(String.valueOf(ventasDao.obtenerNAbonos(newValue.getId())));
+                fldNombreC.setText(newValue.getNombreCliente());
+                fldNombreP.setText(newValue.getNombrePaciente());
+                menuPago.setValue(newValue.getMetodoPago());
+                menuArmazon.setValue(newValue.getNombreProducto());
+                menuMica.setValue(newValue.getNombreMica());
+                menuTinte.setValue(newValue.getTinte());
+                lblSaldo.setText(newValue.getSaldoActual().toString());
+                lblTotal.setText(newValue.getCostoTotal().toString());
+                fdlEnganche.setText(newValue.getEnganche().toString());
+                dateBoxVenta.setValue(newValue.getFechaVenta().toLocalDate());
+                menuAbono.setValue(newValue.getPeriodoAbonos());
 
-               actualizarEstadoAbono(String.valueOf(menuPago.getValue()));
-           }
+                actualizarEstadoAbono(String.valueOf(menuPago.getValue()));
+            }
         });
         menuPago.valueProperty().addListener((observable, oldValue, newValue) -> {
             actualizarEstadoAbono(newValue.toString());
@@ -157,20 +210,22 @@ public class VentasController extends NavBarController{
         Lentes lentes = ventasDao.obtenerPrecioProducto(String.valueOf(menuArmazon.getValue()));
         float costoLente = 0.0f;
         float costoMica = 0.0f;
-        float enganche= 0.0f;
+        float enganche = 0.0f;
         float costoTotal = 0.0f;
         float abonos = 0.0f;
         float deuda = 0.0f;
 
-        if (menuPago.valueProperty().getValue().equals("Contado") && (menuMica.getValue() != null || menuArmazon.getValue() != null)) {
-            costoLente = lentes.getPrecioContado();
-            costoMica = micas.getContado();
-        }else if (menuMica.getValue() != null || menuArmazon.getValue() != null){
-            costoLente = lentes.getPrecioCredito();
-            costoMica = micas.getCredito();
+        if (menuPago.getValue() != null) {
+            if (menuPago.getValue().equals("Credito")) {
+                costoLente = lentes.getPrecioCredito();
+                costoMica = micas.getCredito();
+            } else {
+                costoLente = lentes.getPrecioContado();
+                costoMica = micas.getContado();
+            }
         }
 
-        if(!fdlEnganche.getText().isEmpty()){
+        if (!fdlEnganche.getText().isEmpty()) {
             enganche = Float.parseFloat(fdlEnganche.getText());
         }
 
@@ -178,13 +233,27 @@ public class VentasController extends NavBarController{
 
         costoTotal = costoLente + costoMica - enganche;
         deuda = costoTotal - abonos;
-        lblTotal.setText(String.valueOf(costoTotal));
-        lblSaldo.setText(String.valueOf(deuda));
+
+        lblTotal.setText(String.format("%.2f", costoTotal));
+        lblSaldo.setText(String.format("%.2f", deuda));
     }
 
     @FXML
     public void modificarVenta(){
-        try{
+        try {
+            // Obtener el stock actual del producto seleccionado
+            int stockArmazon = ventasDao.obtenerStockProducto(menuArmazon.getValue().toString());
+
+            // Obtener el producto actual de la venta
+            String productoActual = ventasDao.obtenerProductoActual(Integer.parseInt(lblNventa.getText()));
+
+            // Verificar si el producto que se está modificando es diferente al actual
+            if (!menuArmazon.getValue().toString().equals(productoActual) && stockArmazon <= 0) {
+                // Mostrar un mensaje de advertencia si no hay stock
+                showAlert(Alert.AlertType.WARNING, "Stock insuficiente", "No hay suficiente stock para el producto seleccionado.");
+                return;  // No continuar con la venta
+            }
+
             Venta venta = new Venta();
             venta.setId(Integer.parseInt(lblNventa.getText()));
             venta.setNombreProducto(String.valueOf(menuArmazon.getValue()));
@@ -193,21 +262,41 @@ public class VentasController extends NavBarController{
             venta.setCostoTotal(Float.parseFloat(lblTotal.getText()));
             venta.setSaldoActual(Float.parseFloat(lblSaldo.getText()));
             venta.setFechaVenta(Date.valueOf(dateBoxVenta.getValue()));
-            venta.setTinte(String.valueOf(menuTinte.getValue()));
             venta.setMetodoPago(String.valueOf(menuPago.getValue()));
-            venta.setPeriodoAbonos(String.valueOf(menuAbono.getValue()));
+            if(menuTinte.getValue() != null){
+                venta.setTinte(menuTinte.getValue().toString());
+            }else{
+                venta.setTinte("Ninguno");
+            }
+            if(!menuAbono.isDisabled()){
+                venta.setPeriodoAbonos(menuAbono.getValue().toString());
+            }else{
+                venta.setPeriodoAbonos(null);
 
-            Alert alert = showAlertConfirmation("Modificar Venta!", "Al modificar la venta cambiara la deuda del cliente, ¿Seguro que desea modificar?");
+
+
+
+
+            }
+
+
+            // Validar que el saldo actual no sea negativo
+            if (venta.getSaldoActual() < 0) {
+                showAlert(Alert.AlertType.ERROR, "Error al Modificar", "El enganche no puede ser mayor al saldo actual.");
+                return;
+            }
+
+            Alert alert = showAlertConfirmation("Modificar Venta", "¿Está seguro que desea modificar la venta?");
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK){
+            if (result.isPresent() && result.get() == ButtonType.OK) {
                 ventasDao.modificarVenta(venta);
             }
+
             mostrarVentas();
             limpiarCampos();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error al Modificar!", "Hubo un error al intentar modificar el Lente: " + fldNombreP.getText() + "favor de verificar los campos obligatorios marcados con '*'");
-
+            showAlert(Alert.AlertType.ERROR, "Error al Modificar", "Hubo un error al intentar modificar la venta. Verifique los campos obligatorios.");
         }
     }
 
@@ -253,6 +342,7 @@ public class VentasController extends NavBarController{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/AbonosView.fxml"));
             Parent abonosView = loader.load();
             AbonosController controller = loader.getController();
+            System.out.println(ventaId);
             controller.setDatos(nombreCliente, nombreP, Deuda, CostoTotal, ventaId);
             Scene scene = new Scene(abonosView);
             Stage stage = new Stage();
@@ -263,10 +353,22 @@ public class VentasController extends NavBarController{
             stage.centerOnScreen();
             stage.toFront();
             stage.setOnCloseRequest(event -> {
-              mostrarVentas();
+                mostrarVentas();
             });
         }catch(Exception e){
             e.printStackTrace();
         }
     }
+
+    private void validarNumeros(){
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getText();
+            if (text.matches("[0-9]*\\.?[0-9]*")) {
+                return change;
+            }
+            return null;
+        };
+        fdlEnganche.setTextFormatter(new TextFormatter<>(filter));
+    }
+
 }

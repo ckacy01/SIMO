@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 /**
  * NuevaVentaController.java
@@ -34,8 +35,6 @@ public class NuevaVentaController extends NavBarController{
     private ComboBox menuMica;
     @FXML
     private ComboBox menuTinte;
-    @FXML
-    private ComboBox menuMetodo;
     @FXML
     private ComboBox menuAbono;
     @FXML
@@ -62,6 +61,7 @@ public class NuevaVentaController extends NavBarController{
         autocompletarPacientes();
         configurarEventos();
         configurarListeners();
+        validarNumeros();
 
     }
 
@@ -185,20 +185,41 @@ public class NuevaVentaController extends NavBarController{
 
     public void generarVenta(){
         try{
+            try {
+                // Obtener el stock actual del producto seleccionado
+                int stockArmazon = nuevaVentaDao.obtenerStockProducto(menuArmazon.getValue().toString());
+
+                // Verificar si hay stock suficiente para realizar la venta
+                if (stockArmazon <= 0) {
+                    // Mostrar un mensaje de advertencia si no hay stock
+                    showAlert(Alert.AlertType.WARNING, "Stock insuficiente", "No hay suficiente stock para el producto seleccionado.");
+                    return;  // No continuar con la venta
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             NuevaVenta nuevaVenta = new NuevaVenta();
             nuevaVenta.setNombrePaciente(fldNombrePaciente.getText());
             nuevaVenta.setFechaVenta(Date.valueOf(dateBoxVenta.getValue()));
             nuevaVenta.setNombreProducto(menuArmazon.getValue().toString());
             nuevaVenta.setNombreMica(menuMica.getValue().toString());
-            nuevaVenta.setTinte(menuTinte.getValue().toString());
-            if(menuAbono.getValue() != null){
+            if(menuTinte.getValue() != null){
+                nuevaVenta.setTinte(menuTinte.getValue().toString());
+            }else{
+                nuevaVenta.setTinte("Ninguno");
+            }
+            if(!menuAbono.isDisabled()){
                 nuevaVenta.setPeriodoAbonos(menuAbono.getValue().toString());
             }else{
-                nuevaVenta.setPeriodoAbonos("");
+                nuevaVenta.setPeriodoAbonos(null);
             }
             nuevaVenta.setMetodoPago(menuPago.getValue().toString());
             nuevaVenta.setCostoTotal(Float.parseFloat(lblTotal.getText()));
             nuevaVenta.setSaldoActual(Float.parseFloat(lblSaldo.getText()));
+            if(nuevaVenta.getSaldoActual() < 0){
+                showAlert(Alert.AlertType.ERROR, "Error", "Error al agregar Venta el enganche no puede ser mayor a el costo total");
+                return;
+            }
             nuevaVenta.setEnganche(Float.parseFloat(fdlEnganche.getText()));
             nuevaVentaDao.insertarVenta(nuevaVenta);
             showAlert(Alert.AlertType.INFORMATION, "Agregar Venta", "Venta Agregada con exito!");
@@ -216,5 +237,15 @@ public class NuevaVentaController extends NavBarController{
         alert.showAndWait();
     }
 
+    private void validarNumeros(){
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getText();
+            if (text.matches("[0-9]*\\.?[0-9]*")) {
+                return change;
+            }
+            return null;
+        };
+        fdlEnganche.setTextFormatter(new TextFormatter<>(filter));
+    }
 
 }

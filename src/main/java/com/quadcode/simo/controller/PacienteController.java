@@ -1,20 +1,17 @@
 package com.quadcode.simo.controller;
 
-import com.quadcode.simo.dao.ClienteDao;
 import com.quadcode.simo.dao.PacienteDao;
 import com.quadcode.simo.model.Cliente;
-import com.quadcode.simo.model.ClienteDetalle;
 import com.quadcode.simo.model.Paciente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 /**
  * PacienteController.java
@@ -60,6 +57,8 @@ public class PacienteController extends NavBarController{
     private ListView<Cliente> listClienteNombre;
     @FXML
     private TextField lblDI;
+    @FXML
+    private TextField fldBuscarPaciente;
 
     private PacienteDao pacienteDao;
     private int PacienteId;
@@ -74,6 +73,8 @@ public class PacienteController extends NavBarController{
         cargarDatosEnTabla();
         configurarEventos();
         autocompletarClientes();
+        validarNumeros();
+        configurarBusqueda();
     }
 
     private void cargarDatosEnTabla() {
@@ -82,6 +83,29 @@ public class PacienteController extends NavBarController{
             ObservableList<Paciente> observableList = FXCollections.observableArrayList(pacientes);
             tbPacientes.setItems(observableList);
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void configurarBusqueda() {
+        fldBuscarPaciente.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarTablaPorNombre(newValue);
+        });
+    }
+
+    private void filtrarTablaPorNombre(String nombre) {
+        try {
+            List<Paciente> pacientes = pacienteDao.obtenerPacientes();
+
+            // Filtrar la lista de pacientes por nombre
+            List<Paciente> pacientesFiltrados = pacientes.stream()
+                    .filter(paciente -> paciente.getNombrePaciente().toLowerCase().contains(nombre.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            // Actualizar la tabla con la lista filtrada
+            ObservableList<Paciente> observableList = FXCollections.observableArrayList(pacientesFiltrados);
+            tbPacientes.setItems(observableList);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -186,7 +210,7 @@ public class PacienteController extends NavBarController{
 
         PacienteDao pacienteDao = new PacienteDao();
         Alert alert;
-        alert = showAlertConfirmation(Alert.AlertType.CONFIRMATION, "Modificar Paciente", "¿Seguro que desea modificar al paciente " + paciente.getNombrePaciente() + "?");
+        alert = showAlertConfirmation(Alert.AlertType.CONFIRMATION, "Modificar Paciente", "¿Seguro que desea modificar al paciente " + paciente.getNombrePaciente() + " ?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK){
             pacienteDao.modificarPaciente(paciente);
@@ -229,6 +253,25 @@ public class PacienteController extends NavBarController{
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void validarNumeros() {
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getControlNewText();
+            if (text.matches("-?[0-9]*\\.?[0-9]*")) {
+                return change;
+            }
+            return null;
+        };
+        lblDI.setTextFormatter(new TextFormatter<>(filter));
+        lblEjed.setTextFormatter(new TextFormatter<>(filter));
+        lblCilindro.setTextFormatter(new TextFormatter<>(filter));
+        lblAdicion.setTextFormatter(new TextFormatter<>(filter));
+        lblEje.setTextFormatter(new TextFormatter<>(filter));
+        lblCilindrod.setTextFormatter(new TextFormatter<>(filter));
+        lblAdiciond.setTextFormatter(new TextFormatter<>(filter));
+        lblEsfera.setTextFormatter(new TextFormatter<>(filter));
+        lblEsferad.setTextFormatter(new TextFormatter<>(filter));
     }
 }
 

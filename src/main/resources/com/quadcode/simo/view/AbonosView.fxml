@@ -42,15 +42,6 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="btnEliminar" layoutX="384.0" layoutY="523.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: CB2E2D;">
-               <children>
-                  <Text fill="WHITE" layoutX="8.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="ELIMINAR">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-               </children>
-            </Pane>
             <Pane fx:id="btnLimpiar" layoutX="575.0" layoutY="523.0" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;">
                <children>
                   <Text fill="WHITE" layoutX="12.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="button-font-" text="LIMPIAR">

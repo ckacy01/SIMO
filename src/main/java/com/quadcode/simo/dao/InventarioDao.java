@@ -167,27 +167,6 @@ public class InventarioDao {
         }
     }
 
-    /*
-    public List<Lentes> buscarLentePorNombre(String nombre){
-        List<Lentes> lentes = new ArrayList<>();
-        String sql = "{SELECT * from productos where nombre = ?}";
-
-        try(PreparedStatement stmt = connection.prepareStatement(sql)){
-                stmt.setString(1, nombre + "%");
-                ResultSet rs = stmt.executeQuery();
-                while(rs.next()){
-                    lentes.add(new Lentes());
-                }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return lentes;
-    }
-     */
-
-
-
-
 
 
 }

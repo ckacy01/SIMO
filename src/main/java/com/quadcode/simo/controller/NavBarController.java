@@ -34,13 +34,14 @@ public class NavBarController {
 
     private static String username;
     private static LocalDate fecha = LocalDate.now();
+    private static String password;
     @FXML
     private Label lblFecha;
     @FXML
     private MenuButton menuUsuario;
-
     @FXML
     private Pane somePane;
+
 
     @FXML
     public void btnInicio(MouseEvent event) {
@@ -82,6 +83,9 @@ public class NavBarController {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quadcode/simo/view/ConfiguracionView.fxml"));
             Parent confview = loader.load();
+            ConfiguracionController configuracionController = loader.getController();
+            configuracionController.setPassword(password);
+            configuracionController.setUsuario(username);
             Scene scene = new Scene(confview);
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -118,7 +122,7 @@ public class NavBarController {
         }
     }
 
-    private void cerrarSesion() {
+    public void cerrarSesion() {
         try{
             Main main = new Main();
             Stage stage = new Stage();
@@ -135,6 +139,10 @@ public class NavBarController {
     public void setUser(String username) {
         this.username = username;
         setMenuUser();
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setMenuUser(){

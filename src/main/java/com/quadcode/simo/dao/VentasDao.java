@@ -130,10 +130,10 @@ public class VentasDao {
         List<String> nombres = new ArrayList<>();
         String sql = "SELECT Nombre FROM productos";
         try (PreparedStatement stmt = connection.prepareStatement(sql)){
-             ResultSet rs = stmt.executeQuery();
-                while (rs.next()) {
-                    nombres.add(rs.getString("Nombre"));
-                }
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                nombres.add(rs.getString("Nombre"));
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -171,22 +171,57 @@ public class VentasDao {
     }
 
     public void modificarVenta(Venta venta){
-      String sql = "{CALL actualizar_venta(?,?,?,?,?,?,?,?,?,?)}";
-      try(CallableStatement stmt = connection.prepareCall(sql)){
-          stmt.setInt(1, venta.getId());
-          stmt.setString(2, venta.getNombreProducto());
-          stmt.setFloat(3,venta.getEnganche());
-          stmt.setString(4, venta.getNombreMica());
-          stmt.setString(5, venta.getMetodoPago());
-          stmt.setString(6, venta.getTinte());
-          stmt.setDate(7,venta.getFechaVenta());
-          stmt.setFloat(8,venta.getCostoTotal());
-          stmt.setFloat(9,venta.getSaldoActual());
-          stmt.setString(10,venta.getPeriodoAbonos());
-          stmt.execute();
-      }catch (Exception e){
-          e.printStackTrace();
+        String sql = "{CALL actualizar_venta(?,?,?,?,?,?,?,?,?,?)}";
+        try(CallableStatement stmt = connection.prepareCall(sql)){
+            stmt.setInt(1, venta.getId());
+            stmt.setString(2, venta.getNombreProducto());
+            stmt.setFloat(3,venta.getEnganche());
+            stmt.setString(4, venta.getNombreMica());
+            stmt.setString(5, venta.getMetodoPago());
+            stmt.setString(6, venta.getTinte());
+            stmt.setDate(7,venta.getFechaVenta());
+            stmt.setFloat(8,venta.getCostoTotal());
+            stmt.setFloat(9,venta.getSaldoActual());
+            stmt.setString(10,venta.getPeriodoAbonos());
+            stmt.execute();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
-}}
+    public int obtenerStockProducto(String producto ){
+        int stock = 0;
+        String sql = "select Stock from productos where Nombre = ?";
+        try(PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setString(1,producto);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                stock = rs.getInt("Stock");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return stock;
+    }
+
+    public String obtenerProductoActual(int idVenta) {
+        String productoActual = null;
+        String query = "SELECT  NombreProducto FROM obtener_venta_detalles WHERE Id = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+
+            pstmt.setInt(1, idVenta);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                productoActual = rs.getString("NombreProducto");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return productoActual;
+    }
+}
+
 
 

@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 /**
  * ClienteController.java
@@ -56,7 +58,8 @@ public class ClienteController extends NavBarController{
     private TextField fldEntreC2;
     @FXML
     private TextField fldReferencia2;
-
+    @FXML
+    private TextField fldBuscarCliente;
 
     private ClienteDao clienteDao;
     private int clienteId;
@@ -70,6 +73,8 @@ public class ClienteController extends NavBarController{
         // cargar datos en la tabla
         cargarDatosEnTabla();
         configurarEventos();
+        validarNumeros();
+        configurarBusqueda();
     }
 
     private void cargarDatosEnTabla() {
@@ -103,6 +108,29 @@ public class ClienteController extends NavBarController{
                 fldCp2.setText(newValue.getDireccionReferidoCodigoPostal());
             }
         });
+    }
+
+    private void configurarBusqueda() {
+        fldBuscarCliente.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarTablaPorNombre(newValue);
+        });
+    }
+
+    private void filtrarTablaPorNombre(String nombre) {
+        try {
+            List<ClienteDetalle> clientesDetalles = clienteDao.obtenerClientesDetalle();
+
+            // Filtrar la lista según el nombre
+            List<ClienteDetalle> clientesFiltrados = clientesDetalles.stream()
+                    .filter(cliente -> cliente.getClienteNombre().toLowerCase().contains(nombre.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            // Actualizar la tabla con la lista filtrada
+            ObservableList<ClienteDetalle> observableList = FXCollections.observableArrayList(clientesFiltrados);
+            tbClientes.setItems(observableList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -175,7 +203,7 @@ public class ClienteController extends NavBarController{
 
         ClienteDao clienteDao = new ClienteDao();
         Alert alert;
-        alert = showAlertConfirmation(Alert.AlertType.CONFIRMATION, "Modificar cliente", "¿Seguro que desea modificar al cliente " + clienteDetalle.getClienteNombre() + "?");
+        alert = showAlertConfirmation(Alert.AlertType.CONFIRMATION, "Modificar cliente", "¿Seguro que desea modificar al cliente " + clienteDetalle.getClienteNombre() + " ?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK){
            clienteDao.modificarCliente(clienteDetalle);
@@ -219,6 +247,20 @@ public class ClienteController extends NavBarController{
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void validarNumeros(){
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getText();
+            if (text.matches("[0-9]*\\.?[0-9]*")) {
+                return change;
+            }
+            return null;
+        };
+        fldTel1.setTextFormatter(new TextFormatter<>(filter));
+        fldTel2.setTextFormatter(new TextFormatter<>(filter));
+        fldCp1.setTextFormatter(new TextFormatter<>(filter));
+        fldCp2.setTextFormatter(new TextFormatter<>(filter));
     }
 
 }

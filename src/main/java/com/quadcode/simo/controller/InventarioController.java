@@ -13,6 +13,8 @@ import javafx.scene.control.*;
 import javax.swing.*;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 /**
  * InvetarioController.java
@@ -30,7 +32,9 @@ public class InventarioController extends NavBarController{
     @FXML
     private TableView<Lentes>tbLentes;
     @FXML
-    private TextField  fldBuscarCliente;
+    private TextField  fldBuscarLente;
+    @FXML
+    private TextField  fldBuscarMica;
     @FXML
     private TextField fldNombreL;
     @FXML
@@ -64,6 +68,9 @@ public class InventarioController extends NavBarController{
         tbMica.getColumns().addAll(columns1);
         mostarDatosMicas();
         eventoTablas();
+        validarNumeros();
+        configurarBusqueda();
+
     }
 
     public void mostarDatosLentes(){
@@ -105,6 +112,48 @@ public class InventarioController extends NavBarController{
                 DescripcionL.setText(String.valueOf(newValue.getDescripcion()));
             }
         });
+    }
+    private void configurarBusqueda() {
+        fldBuscarMica.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarMicasPorNombre(newValue);
+        });
+
+        fldBuscarLente.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarLentesPorNombre(newValue);
+        });
+    }
+    private void filtrarMicasPorNombre(String nombreMica) {
+        try {
+            List<Mica> micas = inventarioDao.obetenerMicas();
+
+            // Filtrar la lista de micas por nombre
+            List<Mica> micasFiltradas = micas.stream()
+                    .filter(mica -> mica.getTipo().toLowerCase().contains(nombreMica.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            // Actualizar la tabla con la lista filtrada
+            ObservableList<Mica> observableList = FXCollections.observableArrayList(micasFiltradas);
+            tbMica.setItems(observableList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void filtrarLentesPorNombre(String nombreLente) {
+        try {
+            List<Lentes> lentes = inventarioDao.obetenerLentes();
+
+            // Filtrar la lista de lentes por nombre
+            List<Lentes> lentesFiltrados = lentes.stream()
+                    .filter(lente -> lente.getNombre().toLowerCase().contains(nombreLente.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            // Actualizar la tabla con la lista filtrada
+            ObservableList<Lentes> observableList = FXCollections.observableArrayList(lentesFiltrados);
+            tbLentes.setItems(observableList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void insertarLente(){
@@ -216,6 +265,21 @@ public class InventarioController extends NavBarController{
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void validarNumeros(){
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getText();
+            if (text.matches("[0-9]*\\.?[0-9]*")) {
+                return change;
+            }
+            return null;
+        };
+        fldContadoM.setTextFormatter(new TextFormatter<>(filter));
+        fldCreditoM.setTextFormatter(new TextFormatter<>(filter));
+        fldCreditoL.setTextFormatter(new TextFormatter<>(filter));
+        fldContadoL.setTextFormatter(new TextFormatter<>(filter));
+        fldStockL.setTextFormatter(new TextFormatter<>(filter));
     }
 
 }

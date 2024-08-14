@@ -1,6 +1,9 @@
 package com.quadcode.simo.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 
 /**

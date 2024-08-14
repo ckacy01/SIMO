@@ -3,8 +3,10 @@ package com.quadcode.simo.controller;
 
 import com.quadcode.simo.model.UserLogin;
 import com.quadcode.simo.service.LoginService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,6 +21,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.awt.event.KeyEvent;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
  * LoginController.java
  * --------------------------------------------------------------
@@ -30,7 +36,13 @@ import javafx.stage.StageStyle;
  * ---------------------------------------------------------------
  */
 
-public class LoginController {
+public class LoginController implements Initializable {
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        fldUser.setOnAction(e -> onEnterPressed());
+        fldPassword.setOnAction(e -> onEnterPressed());
+    }
 
     @FXML
     private Pane pnExit;
@@ -42,6 +54,8 @@ public class LoginController {
     private PasswordField fldPassword;
     @FXML
     private Label lblError;
+    @FXML
+    private Pane btnLogin;
 
     private LoginService loginService;
 
@@ -121,6 +135,11 @@ public class LoginController {
         alert.showAndWait();
     }
 
+    public void onEnterPressed() {
+        authenticateUser();
+    }
+
+
     /**
      * Carga la vista principal despues de un inicio de sesion exitoso
      *
@@ -134,6 +153,7 @@ public class LoginController {
             Parent homeview = loader.load();
             HomeController homeController = loader.getController();
             homeController.setUser(userLogin.getUsername());
+            homeController.setPassword(userLogin.getPassword());
             homeview.getStylesheets().add(getClass().getResource("/com/quadcode/simo/styles/styles.css").toExternalForm());
             Scene scene = new Scene(homeview);
             Stage stage = new Stage();
@@ -148,4 +168,6 @@ public class LoginController {
         }
 
     }
+
+
 }

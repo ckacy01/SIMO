@@ -46,6 +46,7 @@ public class AbonosController extends NavBarController implements Initializable 
     private VentasDao ventaDao;
     private AbonosDao abonosDao;
     private int AbonoId;
+     public boolean  modificar = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -53,7 +54,6 @@ public class AbonosController extends NavBarController implements Initializable 
         ventaDao = new VentasDao();
         List<TableColumn<Abonos, ?>> abonos = abonosDao.obtenerColumnas();
         tbAbonos.getColumns().setAll(abonos);
-        mostrarAbonos();
         eventosTablas();
     }
 
@@ -64,6 +64,7 @@ public class AbonosController extends NavBarController implements Initializable 
         this.Total = Total;
         this.IdVenta = IdVenta;
         setDatosEnPantalla();
+        mostrarAbonos();
     }
 
     public void setDatosEnPantalla() {
@@ -78,7 +79,7 @@ public class AbonosController extends NavBarController implements Initializable 
 
     public void mostrarAbonos() {
         try{
-            List<Abonos> abonos = abonosDao.ObtenerAbonos();
+            List<Abonos> abonos = abonosDao.ObtenerAbonos(IdVenta);
             ObservableList<Abonos> observableList = FXCollections.observableArrayList(abonos);
             tbAbonos.setItems(observableList);
         }catch (Exception e){
@@ -107,8 +108,6 @@ public class AbonosController extends NavBarController implements Initializable 
             showAlert(Alert.AlertType.INFORMATION, "Agregar abono!", "Abono Agregado exitosamente");
             mostrarAbonos();
             setDatosEnPantalla();
-
-
         }catch (Exception e){
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error al insertar abono!", "Error al insertar abono!");
@@ -129,6 +128,8 @@ public class AbonosController extends NavBarController implements Initializable 
                 abonosDao.modificarAbono(abono);
             }
             mostrarAbonos();
+            setDatosEnPantalla();
+            modificar = true;
         }catch (Exception e){
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error al editar abono!", "Error al editar abono!");
