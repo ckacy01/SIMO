@@ -257,7 +257,7 @@
                            <String fx:value="CR-39" />
                            <String fx:value="A INDEX" />
                            <String fx:value="POLICARBONATO" />
-                           <String fx:value="OTROS" />
+                           <String fx:value="OTRO" />
                         </FXCollections>
                      </items>
                   </ComboBox>
