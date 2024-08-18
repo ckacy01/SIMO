@@ -2,6 +2,7 @@
 /build/
 /target/
 /out/
+/src/main/resources/META-INF
 
 # Archivos de configuración del IDE
 /.idea/
