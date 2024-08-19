@@ -14,9 +14,12 @@ import org.checkerframework.checker.units.qual.N;
 
 import java.net.URL;
 import java.sql.Date;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 public class AbonosController extends NavBarController implements Initializable  {
     @FXML
@@ -46,7 +49,7 @@ public class AbonosController extends NavBarController implements Initializable 
     private VentasDao ventaDao;
     private AbonosDao abonosDao;
     private int AbonoId;
-     public boolean  modificar = false;
+    public boolean  modificar = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,16 +68,24 @@ public class AbonosController extends NavBarController implements Initializable 
         this.IdVenta = IdVenta;
         setDatosEnPantalla();
         mostrarAbonos();
-    }
+        // ListenerDeuda();
+        }
 
     public void setDatosEnPantalla() {
         fldNombreC.setText(NombreC);
         fldNombreP.setText(NombreP);
-        lblSaldo.setText(Float.toString(abonosDao.obtenerDeuda(IdVenta)));
         lblNVenta.setText(Integer.toString(IdVenta));
-        lblTotal.setText(Float.toString(Total));
         ventaDao = new VentasDao();
         lblNAbonos.setText(Integer.toString(ventaDao.obtenerNAbonos(IdVenta)));
+
+        // Dar formato de dinero a los labels
+        Float deuda = abonosDao.obtenerDeuda(IdVenta);
+        NumberFormat currecy = NumberFormat.getCurrencyInstance(Locale.US);
+        String deudaFormateada = currecy.format(deuda);
+        String costoFormateada = currecy.format(Total);
+
+        lblTotal.setText(costoFormateada);
+        lblSaldo.setText(deudaFormateada);
     }
 
     public void mostrarAbonos() {
@@ -97,8 +108,28 @@ public class AbonosController extends NavBarController implements Initializable 
         });
     }
 
+    /*private void ListenersDeuda(){
+        fldMonto.textProperty().addListener((observable) -> {
+            float deuda = 0.0f;
+            deuda = this.Deuda;
+            deuda = deuda - Float.parseFloat(fldMonto.getText());
+            NumberFormat currecy = NumberFormat.getCurrencyInstance(Locale.US);
+            String deudaFormateada = currecy.format(deuda);
+
+            lblSaldo.setText(deudaFormateada);
+        });
+    }*/
+
     @FXML
     public void InsertarAbono(){
+        if(Deuda <= 0){
+            showAlert(Alert.AlertType.ERROR, "Error al insertar abono!", "Error al insertar abono! no se puede insertar un abono cuando ya no hay adeudos");
+            return;
+        }
+        if(Float.parseFloat(fldMonto.getText()) > Deuda){
+            showAlert(Alert.AlertType.ERROR, "Error al insertar abono!", "Error al insertar abono! El monto del abono no puede ser mayor al de la deuda");
+            return;
+        }
         try {
             Abonos abono = new Abonos();
             abono.setMonto(Float.parseFloat(fldMonto.getText()));
@@ -116,6 +147,14 @@ public class AbonosController extends NavBarController implements Initializable 
 
     @FXML
     public void modificarAbono(){
+        if(Deuda <= 0){
+            showAlert(Alert.AlertType.ERROR, "Error al insertar abono!", "Error al insertar abono! no se puede insertar un abono cuando ya no hay adeudos");
+            return;
+        }
+        if(Float.parseFloat(fldMonto.getText()) > Deuda){
+            showAlert(Alert.AlertType.ERROR, "Error al insertar abono!", "Error al insertar abono! El monto del abono no puede ser mayor al de la deuda");
+            return;
+        }
         try{
             Abonos abono = new Abonos();
             System.out.println(AbonoId);
@@ -156,6 +195,17 @@ public class AbonosController extends NavBarController implements Initializable 
     public void Limpiar(){
         fldMonto.setText("");
         dateBoxVenta.setValue(null);
+    }
+
+    private void validarNumeros(){
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getText();
+            if (text.matches("[0-9]*\\.?[0-9]*")) {
+                return change;
+            }
+            return null;
+        };
+        fldMonto.setTextFormatter(new TextFormatter<>(filter));
     }
 
 }

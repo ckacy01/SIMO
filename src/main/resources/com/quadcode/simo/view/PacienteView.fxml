@@ -285,7 +285,6 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
                   </TextField>
-                  <ListView fx:id="listClienteNombre" layoutX="438.0" layoutY="80.0" prefHeight="140.0" prefWidth="230.0" visible="false" />
                   <TextField fx:id="lblDI" layoutX="687.0" layoutY="196.0" prefHeight="20.0" prefWidth="80.0" promptText="DI" styleClass="form-text-field">
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
@@ -307,6 +306,7 @@
                   <Text fill="RED" layoutX="491.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
                   <Text fill="RED" layoutX="489.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
                   <Text fill="RED" layoutX="658.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <ListView fx:id="listClienteNombre" layoutX="438.0" layoutY="80.0" prefHeight="140.0" prefWidth="230.0" visible="false" />
                </children>
             </Pane>
          </children>

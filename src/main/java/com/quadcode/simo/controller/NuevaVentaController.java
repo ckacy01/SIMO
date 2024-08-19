@@ -9,8 +9,11 @@ import javafx.scene.control.*;
 
 import javax.swing.*;
 import java.sql.Date;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.UnaryOperator;
 
 /**
@@ -151,8 +154,14 @@ public class NuevaVentaController extends NavBarController{
 
         deuda = costoLente + costoMica;
         costoTotal = deuda - enganche;
-        lblTotal.setText(String.valueOf(deuda));
-        lblSaldo.setText(String.valueOf(costoTotal));
+
+        // Dar formato de dinero a los labels
+        NumberFormat currecy = NumberFormat.getCurrencyInstance(Locale.US);
+        String deudaFormateada = currecy.format(deuda);
+        String costoFormateada = currecy.format(costoTotal);
+
+        lblTotal.setText(deudaFormateada);
+        lblSaldo.setText(costoFormateada);
     }
 
     public void Limpiar(){
@@ -198,29 +207,54 @@ public class NuevaVentaController extends NavBarController{
             }catch (Exception e){
                 e.printStackTrace();
             }
+
             NuevaVenta nuevaVenta = new NuevaVenta();
             nuevaVenta.setNombrePaciente(fldNombrePaciente.getText());
             nuevaVenta.setFechaVenta(Date.valueOf(dateBoxVenta.getValue()));
             nuevaVenta.setNombreProducto(menuArmazon.getValue().toString());
             nuevaVenta.setNombreMica(menuMica.getValue().toString());
+
+            // Validar si el tinte es vacio
             if(menuTinte.getValue() != null){
                 nuevaVenta.setTinte(menuTinte.getValue().toString());
             }else{
                 nuevaVenta.setTinte("Ninguno");
             }
+
+            // Validar si el pago fue de contado o credito
             if(!menuAbono.isDisabled()){
                 nuevaVenta.setPeriodoAbonos(menuAbono.getValue().toString());
             }else{
                 nuevaVenta.setPeriodoAbonos(null);
             }
+
+
             nuevaVenta.setMetodoPago(menuPago.getValue().toString());
-            nuevaVenta.setCostoTotal(Float.parseFloat(lblTotal.getText()));
-            nuevaVenta.setSaldoActual(Float.parseFloat(lblSaldo.getText()));
+            // Regresar el label de deuda y saldo a formato float para poderlos enviar a la base de datos
+            NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
+            float deudaNueva = 0.0f;
+            float total = 0.0f;
+            try{
+                Number number1 = currency.parse(lblSaldo.getText());
+                Number number2 = currency.parse(lblTotal.getText());
+                deudaNueva = number1.floatValue();
+                total = number2.floatValue();
+            }catch (ParseException e){
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error al Modificar", "Hubo un error al intentar modificar la venta. Verifique los campos obligatorios.");
+            }
+            nuevaVenta.setSaldoActual(deudaNueva);
+            nuevaVenta.setCostoTotal(total);
+
+
+            // Validar que el no sea negativo el saldo
             if(nuevaVenta.getSaldoActual() < 0){
                 showAlert(Alert.AlertType.ERROR, "Error", "Error al agregar Venta el enganche no puede ser mayor a el costo total");
                 return;
             }
+
             nuevaVenta.setEnganche(Float.parseFloat(fdlEnganche.getText()));
+
             nuevaVentaDao.insertarVenta(nuevaVenta);
             showAlert(Alert.AlertType.INFORMATION, "Agregar Venta", "Venta Agregada con exito!");
         }catch (Exception e){

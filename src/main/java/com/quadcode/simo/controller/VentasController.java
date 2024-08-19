@@ -18,9 +18,12 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.sql.Date;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
@@ -166,13 +169,20 @@ public class VentasController extends NavBarController{
                 menuArmazon.setValue(newValue.getNombreProducto());
                 menuMica.setValue(newValue.getNombreMica());
                 menuTinte.setValue(newValue.getTinte());
-                lblSaldo.setText(newValue.getSaldoActual().toString());
-                lblTotal.setText(newValue.getCostoTotal().toString());
                 fdlEnganche.setText(newValue.getEnganche().toString());
                 dateBoxVenta.setValue(newValue.getFechaVenta().toLocalDate());
                 menuAbono.setValue(newValue.getPeriodoAbonos());
 
                 actualizarEstadoAbono(String.valueOf(menuPago.getValue()));
+
+                // Dar formato de dinero a los labels
+                NumberFormat currecy = NumberFormat.getCurrencyInstance(Locale.US);
+                String deudaFormateada = currecy.format(newValue.getSaldoActual());
+                String costoFormateada = currecy.format(newValue.getCostoTotal());
+
+                lblTotal.setText(costoFormateada);
+                lblSaldo.setText(deudaFormateada);
+
             }
         });
         menuPago.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -233,9 +243,13 @@ public class VentasController extends NavBarController{
 
         costoTotal = costoLente + costoMica - enganche;
         deuda = costoTotal - abonos;
+        // Dar formato de dinero a los labels
+        NumberFormat currecy = NumberFormat.getCurrencyInstance(Locale.US);
+        String deudaFormateada = currecy.format(deuda);
+        String costoFormateada = currecy.format(costoTotal);
 
-        lblTotal.setText(String.format("%.2f", costoTotal));
-        lblSaldo.setText(String.format("%.2f", deuda));
+        lblTotal.setText(costoFormateada);
+        lblSaldo.setText(deudaFormateada);
     }
 
     @FXML
@@ -259,26 +273,40 @@ public class VentasController extends NavBarController{
             venta.setNombreProducto(String.valueOf(menuArmazon.getValue()));
             venta.setNombreMica(String.valueOf(menuMica.getValue()));
             venta.setEnganche(Float.parseFloat(fdlEnganche.getText()));
-            venta.setCostoTotal(Float.parseFloat(lblTotal.getText()));
-            venta.setSaldoActual(Float.parseFloat(lblSaldo.getText()));
             venta.setFechaVenta(Date.valueOf(dateBoxVenta.getValue()));
             venta.setMetodoPago(String.valueOf(menuPago.getValue()));
+
+
+            // Validaciones logicas para la base de datos en caso del tinte
             if(menuTinte.getValue() != null){
                 venta.setTinte(menuTinte.getValue().toString());
             }else{
                 venta.setTinte("Ninguno");
             }
+
+            // SI la compra es de contado, se mandara nulo el periodo de abonos
             if(!menuAbono.isDisabled()){
                 venta.setPeriodoAbonos(menuAbono.getValue().toString());
-            }else{
+            }else {
                 venta.setPeriodoAbonos(null);
-
-
-
-
-
             }
 
+
+            // Regresar el label de deuda y saldo a formato float para poderlos enviar a la base de datos
+            NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
+            float deudaNueva = 0.0f;
+            float total = 0.0f;
+            try{
+                Number number1 = currency.parse(lblSaldo.getText());
+                Number number2 = currency.parse(lblTotal.getText());
+                deudaNueva = number1.floatValue();
+                total = number2.floatValue();
+            }catch (ParseException e){
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error al Modificar", "Hubo un error al intentar modificar la venta. Verifique los campos obligatorios.");
+            }
+            venta.setSaldoActual(deudaNueva);
+            venta.setCostoTotal(total);
 
             // Validar que el saldo actual no sea negativo
             if (venta.getSaldoActual() < 0) {
@@ -315,8 +343,6 @@ public class VentasController extends NavBarController{
         menuTinte.setValue(null);
         menuPago.setValue(null);
         menuAbono.setValue(null);
-
-
     }
 
 
