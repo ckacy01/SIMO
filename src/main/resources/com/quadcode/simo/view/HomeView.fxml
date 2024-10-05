@@ -170,7 +170,7 @@
                      <Font name="Roboto" size="14.0" />
                   </font>
                </Text>
-               <Text fill="#5f5f60" layoutX="39.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal_font" text="          - Registro de clientes y pacientes con la generación de sus contratos con Más Óptica en formato imprimible." wrappingWidth="721.0">
+               <Text fill="#5f5f60" layoutX="39.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal_font" text="          - Registro de clientes y pacientes." wrappingWidth="721.0">
                   <font>
                      <Font name="Roboto" size="14.0" />
                   </font>
